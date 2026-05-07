@@ -59,6 +59,21 @@ Check health with:
 curl http://<ip>:<port>/health
 ```
 
+On CUDA 13 uv environments, standalone inference may need the uv-provided
+NVIDIA runtime libraries on `LD_LIBRARY_PATH`. If startup fails with
+`libcudart.so.13` missing, launch with:
+
+```bash
+export LD_LIBRARY_PATH=$(find .venv/lib/python3.12/site-packages/nvidia -type d -name lib | sort | paste -sd: -):${LD_LIBRARY_PATH:-}
+```
+
+If startup then fails during DeepGEMM warmup because the bundled backend is
+unavailable or outdated, disable it for non-FP8 dense models:
+
+```bash
+export VLLM_USE_DEEP_GEMM=0
+```
+
 Check served models with:
 ```bash
 curl http://<ip>:<port>/v1/models

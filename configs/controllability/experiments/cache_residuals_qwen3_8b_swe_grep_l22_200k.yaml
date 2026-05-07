@@ -1,0 +1,11 @@
+env_id: prime/swe-grep
+model_id: Qwen/Qwen3-8B
+trajectory_path: runs/rollouts/prime_swe_grep_Qwen_Qwen3_8B/trajectories.jsonl
+layer: 22
+max_states: 200000
+tokens_per_trajectory: 48
+max_length: 512
+batch_size: 8
+dtype: bfloat16
+device_map: auto
+output_dir: runs/activations_large/prime_swe_grep_Qwen_Qwen3_8B_t48

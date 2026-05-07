@@ -1,0 +1,32 @@
+env_id: prime/swe-grep
+model_id: Qwen/Qwen3-8B
+min_rollouts: 5000
+leading_k: 10
+seed: 42
+regularization: 0.001
+residual_metric: cov_delta_h
+sample_sizes: [1000, 10000, 50000]
+graph_sample_size: 2000
+rank_curve_components: 64
+layer_pair_selection_metric: effective_rank_median
+inputs:
+  trajectories: runs/rollouts/prime_swe_grep_Qwen_Qwen3_8B/trajectories.jsonl
+  residuals: runs/activations_large/prime_swe_grep_Qwen_Qwen3_8B_t48/residuals_l22.npy
+  layer_rank_sweep: runs/stage1_layer_pair_sweep_Qwen_Qwen3_8B_prime_swe_grep_20260507T060653Z/layer_pair_rank_sweep.json
+locked_output: configs/controllability/preregistration/headline_locked_prime_swe_grep.yaml
+layer_pairs:
+  - [4, 6]
+  - [4, 8]
+  - [4, 35]
+  - [8, 10]
+  - [8, 12]
+  - [8, 35]
+  - [12, 14]
+  - [12, 16]
+  - [12, 35]
+  - [16, 18]
+  - [16, 20]
+  - [16, 35]
+  - [20, 22]
+  - [20, 24]
+  - [20, 35]

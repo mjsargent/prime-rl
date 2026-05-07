@@ -86,4 +86,45 @@ Result:
 | 4 | 6 | 1 | 1.0000 | 0.9777 |
 | 12 | 14 | 1 | 0.9998 | 0.9800 |
 
-This supports the narrower conclusion that the original sample-convergence failure is tied to the preregistered 10k-vs-50k proxy convergence check, not to rank degeneracy or chart/discretization instability. Because this changes the convergence criterion after observing results, `configs/controllability/preregistration/headline_locked_primeintellect_math500.yaml` is written as a documented `PREREG_CHANGE` lock rather than an original preregistered pass.
+This supports the narrower conclusion that the original sample-convergence failure is tied to the preregistered 10k-vs-50k proxy convergence check, not to rank degeneracy or chart/discretization instability.
+
+## Official Math500 Stage 1 Status
+
+The post-hoc eigengap diagnostic found a natural cutoff of `K*=1` on both tested layer pairs. That is a substantive finding, but it does not support the multidimensional DIAYN-style empirical program.
+
+Math500 is therefore treated as failed under the preregistered Stage 1 gate. No math500 headline lock is retained, and Stage 2 must not be run on math500 unless a future preregistered protocol explicitly reopens it.
+
+## Swe-Grep Stage 1 Attempt
+
+Rollout evidence: `runs/rollouts/prime_swe_grep_Qwen_Qwen3_8B/summary.json`
+
+Stage 1 run: `stage1_Qwen_Qwen3_8B_prime_swe_grep_20260507T061706Z`
+
+Evidence: `runs/stage1_Qwen_Qwen3_8B_prime_swe_grep_20260507T061706Z/summary.json`
+
+The Tier A code-retrieval environment was run next, using `prime/swe-grep` through prime-rl's rollout machinery. The rollout set contains 5,000 trajectories and 0 failed cells.
+
+Layer-pair sweep evidence: `runs/stage1_layer_pair_sweep_Qwen_Qwen3_8B_prime_swe_grep_20260507T060653Z/summary.json`
+
+Best local-rank layer pair: `(patch_layer=20, readout_layer=22)`, with effective-rank median `6.9441`.
+
+Strict preregistered Stage 1 gate:
+
+| Metric | Value | Threshold | Status |
+|---|---:|---:|---|
+| Median chart-invariance overlap on leading 10 | 0.7761 | >= 0.7 | pass |
+| Graph-vs-parametric discretization overlap on leading 10 | 0.7620 | >= 0.7 | pass |
+| Sample-size convergence, 10k vs 50k | 0.8097 | >= 0.85 | fail |
+| Effective-rank median | 6.9441 | >= 4 | pass |
+
+Eigengap diagnostic run: `stage1_eigengap_convergence_Qwen_Qwen3_8B_prime_swe_grep_20260507T061824Z`
+
+Evidence: `runs/stage1_eigengap_convergence_Qwen_Qwen3_8B_prime_swe_grep_20260507T061824Z/summary.json`
+
+| Patch layer | Readout layer | Natural K | Natural-K 100k vs 200k | Leading-10 100k vs 200k |
+|---:|---:|---:|---:|---:|
+| 20 | 22 | 1 | 0.0000 | 0.8931 |
+| 12 | 14 | 2 | 1.0000 | 0.9983 |
+| 4 | 6 | 3 | 0.9999 | 0.9963 |
+
+Swe-grep does not show the clean multidimensional `K* >= 4` structure needed for the planned DIAYN-style downstream empirical program. It also fails the original Stage 1 sample-convergence gate. The project is therefore stopped at Stage 1 rather than advanced to Stage 2.

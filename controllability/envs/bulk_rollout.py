@@ -51,6 +51,8 @@ async def collect_from_config(config: dict[str, Any]) -> None:
     model_id = config["model_id"]
     n_prompts = int(config["n_prompts"])
     n_seeds_per_prompt = int(config["n_seeds_per_prompt"])
+    prompt_start = int(config.get("prompt_start", 0))
+    seed_start = int(config.get("seed_start", 0))
     output_dir = Path(config.get("output_dir") or f"runs/rollouts/{_safe_name(env_id)}_{_safe_name(model_id)}")
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -81,8 +83,11 @@ async def collect_from_config(config: dict[str, Any]) -> None:
         sampling=eval_sampling,
     )
     env = EvalEnv(env_config)
-    if len(env.examples) < n_prompts:
-        raise ValueError(f"{env_id} provided {len(env.examples)} examples, fewer than requested n_prompts={n_prompts}")
+    if len(env.examples) < prompt_start + n_prompts:
+        raise ValueError(
+            f"{env_id} provided {len(env.examples)} examples, fewer than requested "
+            f"prompt range [{prompt_start}, {prompt_start + n_prompts})"
+        )
 
     client = vf.ClientConfig(
         client_type=config.get("client_type", "openai_chat_completions"),
@@ -156,6 +161,8 @@ async def collect_from_config(config: dict[str, Any]) -> None:
         "model_id": model_id,
         "n_prompts": n_prompts,
         "n_seeds_per_prompt": n_seeds_per_prompt,
+        "prompt_start": prompt_start,
+        "seed_start": seed_start,
         "expected_cells": n_prompts * n_seeds_per_prompt,
         "sampling": sampling.to_sampling_args(),
         "base_url": client.api_base_url,
@@ -168,7 +175,11 @@ async def collect_from_config(config: dict[str, Any]) -> None:
 
     await env.start(log_dir=Path(config.get("env_server_log_dir", "runs/env_server_logs")), log_level="INFO")
     try:
-        tasks = [run_cell(prompt_idx, seed) for prompt_idx in range(n_prompts) for seed in range(n_seeds_per_prompt)]
+        tasks = [
+            run_cell(prompt_idx, seed)
+            for prompt_idx in range(prompt_start, prompt_start + n_prompts)
+            for seed in range(seed_start, seed_start + n_seeds_per_prompt)
+        ]
         for idx in range(0, len(tasks), int(config.get("checkpoint_interval", 100))):
             await asyncio.gather(*tasks[idx : idx + int(config.get("checkpoint_interval", 100))])
             write_jsonl(output_dir / "trajectories.jsonl", trajectories)

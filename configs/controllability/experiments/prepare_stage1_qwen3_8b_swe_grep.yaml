@@ -1,0 +1,18 @@
+env_id: prime/swe-grep
+model_id: Qwen/Qwen3-8B
+n_prompts: 100
+n_seeds_per_prompt: 50
+output_dir: runs/rollouts/prime_swe_grep_Qwen_Qwen3_8B
+base_url: http://127.0.0.1:8000/v1
+api_key_var: VLLM_API_KEY
+timeout_seconds: 900
+concurrency: 96
+env_workers: 8
+checkpoint_interval: 100
+sampling:
+  temperature: 0.7
+  top_p: 0.95
+  max_completion_tokens: 512
+  extra_body:
+    chat_template_kwargs:
+      enable_thinking: false
