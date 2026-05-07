@@ -1,0 +1,16 @@
+env_id: primeintellect/math500
+model_id: Qwen/Qwen3-8B
+seed: 42
+sample_sizes: [10000, 50000, 100000, 200000]
+anchor_size: 2000
+chart_dim: 32
+eig_count: 16
+natural_k_max: 15
+natural_k_overlap_threshold: 0.85
+layer_pairs:
+  - patch_layer: 4
+    readout_layer: 6
+    residuals: runs/activations_large/primeintellect_math500_Qwen_Qwen3_8B_t48/residuals_l6.npy
+  - patch_layer: 12
+    readout_layer: 14
+    residuals: runs/activations_large/primeintellect_math500_Qwen_Qwen3_8B_t48/residuals_l14.npy

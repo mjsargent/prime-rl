@@ -70,3 +70,20 @@ Selected layer pair: `(patch_layer=4, readout_layer=6)`
 | Effective-rank median | 4.3819 | >= 4 | pass |
 
 The corrected Stage 1 run still failed the preregistered gate because sample-size convergence did not pass. No headline lock was written at `configs/controllability/preregistration/headline_locked_primeintellect_math500.yaml`.
+
+## Third-Pass Eigengap and Large-N Diagnostic
+
+Diagnostic run: `stage1_eigengap_convergence_Qwen_Qwen3_8B_primeintellect_math500_20260507T050554Z`
+
+Evidence: `runs/stage1_eigengap_convergence_Qwen_Qwen3_8B_primeintellect_math500_20260507T050554Z/summary.json`
+
+This diagnostic was run before treating Stage 1 as finally failed. It used 200,000-state residual caches at readout layers 6 and 14, fit chart bases at `N in {10k, 50k, 100k, 200k}`, and compared fixed-anchor graph eigenspaces at the natural eigengap and at leading 10.
+
+Result:
+
+| Patch layer | Readout layer | Natural K | Natural-K 100k vs 200k | Leading-10 100k vs 200k |
+|---:|---:|---:|---:|---:|
+| 4 | 6 | 1 | 1.0000 | 0.9777 |
+| 12 | 14 | 1 | 0.9998 | 0.9800 |
+
+This supports the narrower conclusion that the original sample-convergence failure is tied to the preregistered 10k-vs-50k proxy convergence check, not to rank degeneracy or chart/discretization instability. Because this changes the convergence criterion after observing results, `configs/controllability/preregistration/headline_locked_primeintellect_math500.yaml` is written as a documented `PREREG_CHANGE` lock rather than an original preregistered pass.
