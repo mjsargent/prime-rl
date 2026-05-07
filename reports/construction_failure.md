@@ -51,3 +51,22 @@ That diagnostic computes `M = J C J^T` directly on a bounded sample with `chart_
 | 12 | 14 | 4.3539 |
 
 This means the original failed run should be treated as a failed `(12, 18)` attempt, not as definitive evidence that math500 has no viable controllability construction. The next valid action is a corrected Stage 1 implementation/run that includes the planned layer-pair sweep. Stage 2 still must not run until a full Stage 1 gate passes and writes a locked headline config.
+
+## Corrected Stage 1 Run
+
+Corrected run: `stage1_Qwen_Qwen3_8B_primeintellect_math500_20260507T044610Z`
+
+Evidence: `runs/stage1_Qwen_Qwen3_8B_primeintellect_math500_20260507T044610Z/summary.json`
+
+This run used the direct layer-pair sweep artifact as an input, selected the best layer pair by `effective_rank_median`, and gated chart/discretization/sample convergence on cached residuals at the selected readout layer.
+
+Selected layer pair: `(patch_layer=4, readout_layer=6)`
+
+| Metric | Value | Threshold | Status |
+|---|---:|---:|---|
+| Median chart-invariance overlap on leading 10 | 0.7000 | >= 0.7 | pass |
+| Graph-vs-parametric discretization overlap on leading 10 | 0.8736 | >= 0.7 | pass |
+| Sample-size convergence, 10k vs 50k | 0.7345 | >= 0.85 | fail |
+| Effective-rank median | 4.3819 | >= 4 | pass |
+
+The corrected Stage 1 run still failed the preregistered gate because sample-size convergence did not pass. No headline lock was written at `configs/controllability/preregistration/headline_locked_primeintellect_math500.yaml`.

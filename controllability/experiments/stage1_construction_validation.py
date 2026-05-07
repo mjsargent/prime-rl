@@ -170,6 +170,18 @@ def _effective_rank_distribution(x: np.ndarray, seed: int, chunks: int = 32) -> 
     }
 
 
+def _load_layer_rank_sweep(path: Path, selection_metric: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    with path.open() as f:
+        payload = json.load(f)
+    rows = payload.get("rows", [])
+    if not rows:
+        raise ValueError(f"Layer rank sweep has no rows: {path}")
+    if selection_metric not in rows[0]:
+        raise ValueError(f"Selection metric {selection_metric!r} not found in layer rank sweep rows")
+    best = max(rows, key=lambda row: (float(row[selection_metric]), float(row.get("stable_rank_median", 0.0))))
+    return rows, best
+
+
 def _line_count(path: Path) -> int:
     with path.open() as f:
         return sum(1 for line in f if line.strip())
@@ -181,9 +193,12 @@ def run_stage(config_path: Path) -> int:
     model_id = config["model_id"]
     rollout_path = Path(config["inputs"]["trajectories"])
     residual_path = Path(config["inputs"]["residuals"])
+    rank_sweep_path = config["inputs"].get("layer_rank_sweep")
     min_rollouts = int(config.get("min_rollouts", 5000))
     leading_k = int(config.get("leading_k", 10))
     seed = int(config.get("seed", 42))
+    selected_layer_pair: dict[str, Any] | None = None
+    layer_rank_rows: list[dict[str, Any]] | None = None
 
     timestamp = _utc_now()
     run_id = config.get("run_id") or f"stage1_{_safe_name(model_id)}_{_safe_name(env_id)}_{timestamp.replace(':', '').replace('-', '')}"
@@ -197,6 +212,8 @@ def run_stage(config_path: Path) -> int:
         input_errors.append(f"rollout file has {_line_count(rollout_path)} rows, required {min_rollouts}")
     if not residual_path.exists():
         input_errors.append(f"missing residual file: {residual_path}")
+    if rank_sweep_path and not Path(rank_sweep_path).exists():
+        input_errors.append(f"missing layer rank sweep: {rank_sweep_path}")
 
     summary_base = {
         "stage": "stage1_construction_validation",
@@ -212,6 +229,7 @@ def run_stage(config_path: Path) -> int:
             "trajectories_from": str(rollout_path),
             "model_checkpoint": model_id,
             "residuals": str(residual_path),
+            "layer_rank_sweep": rank_sweep_path,
         },
     }
 
@@ -254,7 +272,24 @@ def run_stage(config_path: Path) -> int:
         seed,
     )
     convergence = _sample_convergence(x_work, leading_k, config.get("sample_sizes", [1000, 10000, 50000]), seed)
-    effective_rank = _effective_rank_distribution(x_work, seed)
+    if rank_sweep_path:
+        layer_rank_rows, selected_layer_pair = _load_layer_rank_sweep(
+            Path(rank_sweep_path),
+            config.get("layer_pair_selection_metric", "effective_rank_median"),
+        )
+        effective_rank = {
+            "median": float(selected_layer_pair["effective_rank_median"]),
+            "mean": float(selected_layer_pair.get("effective_rank_mean", selected_layer_pair["effective_rank_median"])),
+            "max": float(selected_layer_pair.get("effective_rank_max", selected_layer_pair["effective_rank_median"])),
+            "values": selected_layer_pair.get("state_effective_ranks", []),
+            "source": str(rank_sweep_path),
+            "selected_layer_pair": {
+                "patch_layer": int(selected_layer_pair["patch_layer"]),
+                "readout_layer": int(selected_layer_pair["readout_layer"]),
+            },
+        }
+    else:
+        effective_rank = _effective_rank_distribution(x_work, seed)
     pca_components, pca_singular = _pca_components(x_work, int(config.get("rank_curve_components", 64)), seed)
     variance = np.square(pca_singular)
     cumulative = np.cumsum(variance) / max(float(variance.sum()), 1e-12)
@@ -282,17 +317,30 @@ def run_stage(config_path: Path) -> int:
     _write_json(run_dir / "chart_invariance.json", {"pairwise": chart_pairwise, "median": chart_median})
     _write_json(run_dir / "discretization_invariance.json", discretization)
     _write_json(run_dir / "sample_size_convergence.json", convergence)
-    _write_json(run_dir / "layer_pair_heatmap.json", {"layer_pairs": config.get("layer_pairs", []), "effective_rank": effective_rank["median"]})
+    _write_json(
+        run_dir / "layer_pair_heatmap.json",
+        {
+            "layer_pairs": config.get("layer_pairs", []),
+            "effective_rank": effective_rank["median"],
+            "rank_sweep_rows": layer_rank_rows,
+            "selected_layer_pair": selected_layer_pair,
+        },
+    )
     _write_json(run_dir / "effective_rank_distribution.json", effective_rank)
     _write_json(run_dir / "cumulative_gain_curve.json", {"cumulative": cumulative.tolist()})
 
     locked_path = Path(config.get("locked_output") or f"configs/controllability/preregistration/headline_locked_{_safe_name(env_id)}.yaml")
     if gate_pass:
+        patch_layer = config.get("patch_layer")
+        readout_layer = config.get("readout_layer")
+        if selected_layer_pair:
+            patch_layer = int(selected_layer_pair["patch_layer"])
+            readout_layer = int(selected_layer_pair["readout_layer"])
         locked_payload = {
             "env_id": env_id,
             "model_id": model_id,
-            "patch_layer": config.get("patch_layer"),
-            "readout_layer": config.get("readout_layer"),
+            "patch_layer": patch_layer,
+            "readout_layer": readout_layer,
             "chart": "PCA",
             "residual_metric": config.get("residual_metric", "cov_delta_h"),
             "lambda": float(config.get("regularization", 1e-3)),

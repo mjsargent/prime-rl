@@ -1,0 +1,11 @@
+env_id: primeintellect/math500
+model_id: Qwen/Qwen3-8B
+trajectory_path: runs/rollouts/primeintellect_math500_Qwen_Qwen3_8B/trajectories.jsonl
+output_dir: runs/activations/primeintellect_math500_Qwen_Qwen3_8B
+layer: 6
+max_states: 50000
+tokens_per_trajectory: 12
+max_length: 512
+batch_size: 4
+dtype: bfloat16
+device_map: auto
