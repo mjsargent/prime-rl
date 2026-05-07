@@ -35,4 +35,19 @@ Per the implementation plan, Stage 1 failure stops the pipeline. Stage 2 and lat
 
 The failed effective-rank diagnostic indicates that, under the current Stage 1 construction and `cov_delta_h` residual metric, the candidate controllability basis is effectively one-dimensional rather than meeting the minimum rank of 4. The failed sample-size convergence diagnostic indicates the leading subspace was not stable enough between 10k and 50k samples.
 
-The next valid action is analysis of the construction failure, not continuation to Stage 2.
+## Diagnostic Amendment
+
+After this failed single-pair run, a direct suffix-Jacobian layer-pair diagnostic was run because the original run only tested `(12, 18)` and did not satisfy the intended layer-pair heatmap coverage.
+
+Diagnostic run: `stage1_layer_pair_sweep_Qwen_Qwen3_8B_primeintellect_math500_20260507T043447Z`
+
+Evidence: `runs/stage1_layer_pair_sweep_Qwen_Qwen3_8B_primeintellect_math500_20260507T043447Z/summary.json`
+
+That diagnostic computes `M = J C J^T` directly on a bounded sample with `chart_dim=16`, 8 Jacobian states, and the grid `patch_layer in [4, 8, 12, 16, 20]`, `readout_layer in {patch+2, patch+4, L-1}`. It found layer pairs exceeding the rank-4 threshold:
+
+| Patch layer | Readout layer | Median effective rank |
+|---:|---:|---:|
+| 4 | 6 | 4.3819 |
+| 12 | 14 | 4.3539 |
+
+This means the original failed run should be treated as a failed `(12, 18)` attempt, not as definitive evidence that math500 has no viable controllability construction. The next valid action is a corrected Stage 1 implementation/run that includes the planned layer-pair sweep. Stage 2 still must not run until a full Stage 1 gate passes and writes a locked headline config.
