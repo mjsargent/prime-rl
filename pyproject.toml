@@ -145,6 +145,13 @@ aime2024 = false
 aime2025 = false
 deepdive = false
 mini_swe_agent_plus = false
+swe-grep = false
+gsm8k = false
+swe = false
+harbor = false
+nyt-connections = false
+simpleqa-verified = false
+research-plan-gen = false
 # PrimeIntellect-published on PyPI (trusted publisher)
 prime = false
 prime-sandboxes = false
