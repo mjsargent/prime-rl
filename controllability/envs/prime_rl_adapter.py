@@ -94,9 +94,13 @@ def trajectory_from_vf_output(
     prompt_id: str,
     seed: int,
     wall_clock_seconds: float,
+    git_hash: str | None = None,
+    prime_rl_git_hash: str | None = None,
+    timestamp_utc: str | None = None,
 ) -> Trajectory:
     reward = float(output.get("reward") or 0.0)
     success = bool(output.get("solved", output.get("success", reward > 0.0)))
+    resolved_git_hash = git_hash or _git_hash()
     return Trajectory(
         env_id=env_id,
         model_id=model_id,
@@ -108,9 +112,9 @@ def trajectory_from_vf_output(
         reward=reward,
         success=success,
         steering=none_steering_metadata(),
-        git_hash=_git_hash(),
-        prime_rl_git_hash=_git_hash(),
-        timestamp_utc=_utc_now(),
+        git_hash=resolved_git_hash,
+        prime_rl_git_hash=prime_rl_git_hash or resolved_git_hash,
+        timestamp_utc=timestamp_utc or _utc_now(),
         wall_clock_seconds=wall_clock_seconds,
     )
 

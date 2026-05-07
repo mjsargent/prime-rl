@@ -48,6 +48,11 @@ class FrozenModel:
 
     def get_residual(self, prefix_tokens: Sequence[int] | Tensor, layer: int, position: int = -1) -> Tensor:
         tokens = self._tokens(prefix_tokens)
+        sequence = self.get_residual_sequence(tokens, layer=layer)
+        return sequence[:, position, :].detach()
+
+    def get_residual_sequence(self, prefix_tokens: Sequence[int] | Tensor, layer: int) -> Tensor:
+        tokens = self._tokens(prefix_tokens)
         captured: dict[str, Tensor] = {}
 
         def hook(_module, _inputs, output) -> None:
@@ -59,7 +64,7 @@ class FrozenModel:
                 self.model(input_ids=tokens, use_cache=False)
             finally:
                 handle.remove()
-        return captured["residual"][:, position, :].detach()
+        return captured["residual"].detach()
 
     def patched_forward(
         self,
