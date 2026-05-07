@@ -26,6 +26,7 @@ dependencies = [
     "aiolimiter>=1.2.1",
     "tenacity>=8.2.0",
     "openai>=1.106.1",
+    "pyyaml>=6.0.2",
     "rich>=14.0.0",
     "setproctitle>=1.3.0",
     "uvloop>=0.21.0",
@@ -71,7 +72,14 @@ envs = [
     "aime2024",
     "aime2025",
     "mini_swe_agent_plus",
-    "deepdive"
+    "deepdive",
+    "swe-grep",
+    "gsm8k",
+    "swe",
+    "harbor",
+    "nyt-connections",
+    "simpleqa-verified",
+    "research-plan-gen",
 ]
 disagg = [
     "deep-ep ; platform_machine == 'x86_64'",
@@ -192,6 +200,13 @@ aime2024 = { index = "primeintellect" }
 aime2025 = { index = "primeintellect" }
 deepdive = { index = "primeintellect" }
 mini_swe_agent_plus = { index = "primeintellect" }
+swe-grep = { index = "prime" }
+gsm8k = { index = "primeintellect" }
+swe = { index = "primeintellect" }
+harbor = { index = "primeintellect" }
+nyt-connections = { index = "prime-community" }
+simpleqa-verified = { index = "primeintellect" }
+research-plan-gen = { index = "dev-team" }
 deep-ep = { url = "https://github.com/PrimeIntellect-ai/prime-rl/releases/download/v0.5.0/deep_ep-1.2.1+73b6ea4-cp312-cp312-linux_x86_64.whl" }
 # DeepGEMM bumped from 477618c to d30fc36 (newer kernel APIs needed by the
 # FP8 grouped-GEMM training path). Rebuild via scripts/install_deep_gemm.sh.
@@ -214,6 +229,21 @@ url = "https://hub.primeintellect.ai/primeintellect/simple/"
 explicit = true
 
 [[tool.uv.index]]
+name = "prime"
+url = "https://hub.primeintellect.ai/prime/simple/"
+explicit = true
+
+[[tool.uv.index]]
+name = "prime-community"
+url = "https://hub.primeintellect.ai/prime-community/simple/"
+explicit = true
+
+[[tool.uv.index]]
+name = "dev-team"
+url = "https://hub.primeintellect.ai/dev-team/simple/"
+explicit = true
+
+[[tool.uv.index]]
 name = "pytorch-cu128"
 url = "https://download.pytorch.org/whl/cu128"
 explicit = true
@@ -232,7 +262,7 @@ ignore = ["F722", "F821"] # Need to ignore for jaxtyping (https://docs.kidger.si
 # `prime_rl` is split across two workspace wheels (prime-rl + prime-rl-configs).
 # Without this, ruff classifies prime_rl.configs.* as third-party because it
 # doesn't live under src/.
-known-first-party = ["prime_rl"]
+known-first-party = ["prime_rl", "controllability"]
 
 [tool.ruff]
 line-length = 120
@@ -249,7 +279,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/prime_rl"]
+packages = ["src/prime_rl", "controllability"]
 
 [tool.hatch.metadata]
 allow-direct-references = true

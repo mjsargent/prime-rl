@@ -1,0 +1,28 @@
+# Explicit Tier B substitutions resolved during preflight.
+resolved_at_utc: "2026-05-07T00:57:41Z"
+requires_human_approval: true
+note: "The user authorized continuing after waiving the storage gate. These substitutions use Hub environments found by `prime env list --search`; no non-Hub environments are introduced. The sandbox-backed substitutions initially failed on billing, then passed smoke rollout after the Prime key was updated."
+
+substitutions:
+  - requested: "swe-bench-verified or swe-bench-lite"
+    selected: "primeintellect/swe"
+    reason: "No exact swe-bench-verified/lite env appeared in Hub search; `primeintellect/swe` is the official SWE tasks environment and describes R2E-Gym/SWE-bench coverage."
+    evidence: "runs/preflight/env_search_candidates.log"
+    smoke_status: "pass_after_prime_key_update"
+    smoke_evidence: "runs/preflight/smoke_rollout_updated_key_primeintellect_swe.json"
+  - requested: "terminal-bench"
+    selected: "primeintellect/harbor"
+    reason: "Hub search found Harbor as an official terminal-bench-style sandbox environment."
+    evidence: "runs/preflight/env_search_candidates.log"
+    smoke_status: "pass_after_prime_key_update"
+    smoke_evidence: "runs/preflight/smoke_rollout_updated_key_primeintellect_harbor.json"
+  - requested: "open-ended generation env"
+    selected: "dev-team/research-plan-gen"
+    reason: "Hub search found a research-plan generation environment with LLM-judge evaluation; it matches the open-ended generation slot without adding a non-Hub environment."
+    evidence: "runs/preflight/env_search_candidates.log"
+  - requested: "deep-research env, if available"
+    selected: null
+    reason: "No deep-research Hub environment verified cleanly in this runtime. `primeintellect/deepdive` requires unavailable SERPER_API_KEY. `prime-community/browsecomp-plus` installed but failed to import because `tevatron.retriever` is missing."
+    evidence:
+      - "runs/preflight/env_verify_primeintellect_deepdive.log"
+      - "runs/preflight/env_verify_prime_community_browsecomp_plus.log"

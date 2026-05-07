@@ -1,0 +1,36 @@
+# Preregistered model list resolved during preflight.
+resolved_at_utc: "2026-05-07T03:10:00Z"
+resolution_evidence:
+  - "runs/preflight/model_hf_probe.log"
+  - "runs/preflight/model_resolution_probe.log"
+
+models:
+  primary:
+    requested_model_id: "Qwen/Qwen3-8B-Instruct"
+    resolved_model_id: "Qwen/Qwen3-8B"
+    status: "preflight_1_6_pass"
+    reason: "Hugging Face returned 404 for Qwen/Qwen3-8B-Instruct; Qwen/Qwen3-8B is the available Qwen3 8B checkpoint used by prime-rl examples/docs."
+    evidence: "runs/preflight/model_primary_Qwen_Qwen3-8B.json"
+  cross_scale:
+    requested_model_id: "Qwen/Qwen3-32B-Instruct"
+    resolved_model_id: "Qwen/Qwen3-32B"
+    status: "preflight_1_6_pass"
+    reason: "Hugging Face returned 401/RepositoryNotFound for Qwen/Qwen3-32B-Instruct; Qwen/Qwen3-32B is the available public Qwen3 32B checkpoint."
+    evidence: "runs/preflight/model_cross_scale_Qwen_Qwen3-32B.json"
+  cross_family_llama:
+    requested_model_id: "meta-llama/Llama-3.1-8B-Instruct"
+    resolved_model_id: "meta-llama/Llama-3.1-8B-Instruct"
+    status: "preflight_1_6_fail_gated_proceed_with_four"
+    reason: "Hugging Face model info resolves but reports gated=manual; loading failed with 401 because no HF token/access is configured. Section 4 allows proceeding with four models."
+    evidence: "runs/preflight/model_cross_family_llama_meta-llama_Llama-3_1-8B-Instruct.json"
+  cross_family_olmo:
+    requested_model_id: "allenai/OLMo-2-1124-7B-Instruct"
+    resolved_model_id: "allenai/OLMo-2-1124-7B-Instruct"
+    status: "preflight_1_6_pass"
+    evidence: "runs/preflight/model_cross_family_olmo_allenai_OLMo-2-1124-7B-Instruct.json"
+  reasoning_tuned:
+    requested_model_id: "Qwen3-Thinking or DeepSeek-R1-Distill"
+    resolved_model_id: "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"
+    status: "preflight_1_6_pass"
+    reason: "Qwen/Qwen3-Thinking did not resolve; DeepSeek-R1-Distill-Qwen-7B is public and matches the reasoning-tuned fallback."
+    evidence: "runs/preflight/model_reasoning_tuned_deepseek-ai_DeepSeek-R1-Distill-Qwen-7B.json"

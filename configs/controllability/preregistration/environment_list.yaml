@@ -1,0 +1,47 @@
+# Preregistered Hub environments resolved during Preflight 1.4.
+# Candidate search evidence: runs/preflight/env_search_candidates.log.
+resolved_at_utc: "2026-05-07T00:57:41Z"
+selection_policy: "Prefer official PrimeIntellect/Prime/community Hub environments with matching task tags and active metadata; Tier B substitutions are explicit."
+storage_gate:
+  status: "waived_by_user"
+  evidence: "runs/preflight/storage_waiver.json"
+
+tier_a:
+  math500:
+    env_id: "primeintellect/math500"
+    reason: "Official PrimeIntellect MATH-500 evaluation environment."
+  swe_grep:
+    env_id: "prime/swe-grep"
+    reason: "Exact SWE-Grep code-search environment with tool-use and train/eval tags."
+
+tier_b:
+  aime:
+    env_id: "primeintellect/aime2024"
+    reason: "Exact AIME 2024 environment from the preregistered aime/aime2024 slot."
+  gsm8k:
+    env_id: "primeintellect/gsm8k"
+    reason: "Official PrimeIntellect GSM8K environment."
+  swe_bench:
+    env_id: "primeintellect/swe"
+    reason: "Closest available official SWE/SWE-bench family environment."
+    substitution_for: "swe-bench-verified or swe-bench-lite"
+  terminal_bench:
+    env_id: "primeintellect/harbor"
+    reason: "Official Harbor terminal-bench-style sandbox environment."
+    substitution_for: "terminal-bench"
+  nyt_connections:
+    env_id: "prime-community/nyt-connections"
+    reason: "NYT Connections word-puzzle environment."
+  simpleqa:
+    env_id: "primeintellect/simpleqa-verified"
+    reason: "Verified SimpleQA factual knowledge environment."
+  open_ended_generation:
+    env_id: "dev-team/research-plan-gen"
+    reason: "Open-ended research plan generation environment with LLM judge."
+  deep_research:
+    env_id: null
+    available: false
+    reason: "Unavailable at preflight. `primeintellect/deepdive` requires SERPER_API_KEY, which is not present. `prime-community/browsecomp-plus` installed but failed to import because `tevatron.retriever` is missing."
+    attempted_env_ids:
+      - "primeintellect/deepdive"
+      - "prime-community/browsecomp-plus"
