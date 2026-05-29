@@ -110,6 +110,12 @@ you intentionally need to update the lockfile. Plain `uv run` can rewrite
 `uv.lock` on the GCP VM because of project-level exclude-newer settings, leaving
 the long-running worktree dirty even when no source files changed.
 
+Prefer explicit one-shot status snapshots over ad hoc background monitor loops
+for the GCP Phase 2 fallback. A failed loop can leave duplicate sleeping shell
+processes that add noise without improving recovery. If you do generate markdown
+shard lines in shell, avoid `printf "- ..."` because bash can parse the leading
+dash as an option; use `printf "%s\n" "- shard: ..."` instead.
+
 ### Restarting a run
 
 **IMPORTANT**: Never restart a run unless you were explicitly instructed by the researcher. If you were given permission, make sure to ask the researcher for the exact command to resume a run and under what conditions a restart is necessary.
