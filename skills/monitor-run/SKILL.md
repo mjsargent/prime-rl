@@ -65,9 +65,18 @@ PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
 bash -lc 'bash scripts/run_phase2_gcp.sh'
 ```
 
+When launching from SSH/IAP with `nohup`, use a login shell or rely on the
+script's built-in `~/.local/bin` PATH prefix. A non-login `nohup bash ...`
+can fail with `uv: command not found` even though interactive shells find `uv`.
+
 One GPU per worker is not enough for this path: the model loads but rollout
 generation OOMs near 39.5 GiB used. Two GPUs per worker can also OOM once
 multi-turn prompts grow. H100-80GB can run one worker per GPU.
+
+If an existing or fresh H100 node is unavailable, document the exact GCP error
+(`ZONE_RESOURCE_POOL_EXHAUSTED_WITH_DETAILS` stockout or zero regional
+`GPUS_PER_GPU_FAMILY` quota) and continue on the repaired one-node A100 fallback
+rather than leaving the phase idle.
 
 If a Phase 2 comparator produces low reward or short outputs, treat those as
 reported comparator outcomes unless `failed_jobs.jsonl` is non-empty or the

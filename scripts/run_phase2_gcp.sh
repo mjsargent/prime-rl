@@ -5,6 +5,7 @@ NUM_SHARDS="${NUM_SHARDS:-8}"
 GPU_GROUPS="${GPU_GROUPS:-}"
 RUN_LABEL="${RUN_LABEL:-}"
 LOG_DIR="${LOG_DIR:-runs/gcp_logs}"
+export PATH="${HOME}/.local/bin:${PATH}"
 mkdir -p "$LOG_DIR"
 
 phase2_configs=(
