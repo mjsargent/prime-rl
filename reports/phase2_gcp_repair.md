@@ -389,3 +389,21 @@ disk: /dev/root 969G total, 58G used, 912G free
 No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
 started. The local branch was clean at `a8c84ccbe`; the active VM checkout
 remained at `f9c39f276` for the already-running process.
+
+At 2026-05-29T15:13:30Z, a narrowed read-only VM handoff preflight passed for
+the files the queued code actually opens before or during downstream stages:
+
+```text
+OK runs/phase2_swe_grep_parametric_b_behavioral_v3_qwen_tooluse_float32_merged/summary.json
+OK runs/stage2_v2_Qwen_Qwen3_8B_prime_swe_grep_parametric_b/random_baseline.json
+OK runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_parametric_b/random_baseline.json
+OK runs/stage3_v2_Qwen_Qwen3_8B_prime_swe_grep/aggregated_per_coordinate.json
+OK runs/stage3_v2_Qwen_Qwen3_8B_primeintellect_math500/aggregated_per_coordinate.json
+```
+
+A broader exploratory check also found missing A/C/PCA locked-baseline
+`random_baseline.json` paths and a missing math500 steering-contract summary,
+but those paths are not opened by the queued Phase 2 generator or Stage 5
+handoff path. Phase 2 generator inputs are the Stage 3 aggregated geometry and
+the existing parametric-B reference, while Stage 5 reads only
+`stage2_parametric_b/random_baseline.json` for each environment.

@@ -135,6 +135,14 @@ gcloud compute ssh controllability-phase2-a2-16-uscentral1c \
   --command='cd ~/prime-rl-phase2 && RUN_LABEL=mega5x3 bash scripts/phase2_status_snapshot.sh'
 ```
 
+For Phase 2 handoff preflights, check files the queued code actually opens:
+the existing swe-grep parametric-B merged summary, the swe-grep and math500
+`stage2_parametric_b/random_baseline.json` files consumed by Stage 5, and the
+Stage 3 aggregated geometry files consumed by the queued Phase 2 configs.
+Do not treat the A/C/PCA locked-baseline `random_baseline.json` paths as
+handoff blockers; the Phase 2 generator does not open them, and Stage 5 reads
+only `stage2_parametric_b`.
+
 For unusually complex one-off SSH diagnostics, pass the remote shell through
 stdin with `--command='bash -s' <<'REMOTE'` to avoid local quoting failures.
 
