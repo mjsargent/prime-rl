@@ -35,7 +35,7 @@ encoder_active_fraction_floor: 0.5
 eta_multiplier: 1.0
 linearization_probe_norm: 1.0e-3
 linearization_diagnostic_scope: turn
-linearization_diagnostic_max_jobs: 64
+linearization_diagnostic_max_jobs: 16
 max_completion_tokens: 512
 require_tool_calls: false
 agent_length_token_floor: 16

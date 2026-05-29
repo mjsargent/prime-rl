@@ -74,10 +74,10 @@ reported comparator outcomes unless `failed_jobs.jsonl` is non-empty or the
 summary's `phase2_required_checks` fail. Phase 2 no longer uses the Phase 1.5
 quality/length smoke gates to stop the batch.
 
-Phase 2 configs should set `linearization_diagnostic_max_jobs` to keep a bounded
-sample of per-turn linearization probes. Full per-trajectory probes are too slow
-on A100-40GB because every probe does extra patched forwards through long
-multi-turn contexts.
+Phase 2 configs should set `linearization_diagnostic_max_jobs: 16` to keep a
+bounded sample of per-turn linearization probes. Full per-trajectory probes are
+too slow on A100-40GB because every probe does extra patched forwards through
+long multi-turn contexts.
 
 ### Restarting a run
 
