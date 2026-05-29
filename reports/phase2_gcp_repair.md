@@ -195,3 +195,8 @@ cells.
 At 2026-05-29T09:00:31Z, the active `mega5x3` A-comparator run had produced
 158 trajectories across 5 shards, 0 failed jobs, and no OOM/device-mismatch
 errors.
+
+At 2026-05-29T09:32:32Z, `mega5x3` had produced 343 A-comparator trajectories
+across 5 shards, 0 failed jobs, and no OOM/device-mismatch errors. Mean reward
+across the observed trajectories was 0.951, and post-diagnostic throughput was
+about 52-54 seconds per trajectory per worker.
