@@ -407,3 +407,22 @@ but those paths are not opened by the queued Phase 2 generator or Stage 5
 handoff path. Phase 2 generator inputs are the Stage 3 aggregated geometry and
 the existing parametric-B reference, while Stage 5 reads only
 `stage2_parametric_b/random_baseline.json` for each environment.
+
+At 2026-05-29T15:24:23Z, `mega5x3` crossed 1900 A-comparator trajectories and
+remained healthy:
+
+```text
+run_id prefix: phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_mega5x3
+trajectories: 1919 / 9600
+failed jobs: 0
+OOM/traceback/tensor-device/ModelError/no-space signatures: 0
+workers: A=10, C=0, PCA=0, MATH=0
+last shard write age: 3 seconds
+oldest shard write age: 36 seconds
+shard counts: 386, 386, 376, 385, 386
+disk: /dev/root 969G total, 58G used, 912G free
+```
+
+No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
+started. The local branch was clean at `698d2a368`; the active VM checkout
+remained at `f9c39f276` for the already-running process.
