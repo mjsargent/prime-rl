@@ -351,3 +351,22 @@ disk: /dev/root 969G total, 58G used, 912G free
 No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
 started. The local branch was clean at `11efaa102`; the active VM checkout
 remained at `f9c39f276` for the already-running process.
+
+At 2026-05-29T14:34:41Z, `mega5x3` crossed 1700 A-comparator trajectories and
+remained healthy:
+
+```text
+run_id prefix: phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_mega5x3
+trajectories: 1704 / 9600
+failed jobs: 0
+OOM/traceback/tensor-device/ModelError/no-space signatures: 0
+workers: A=10, C=0, PCA=0, MATH=0
+last shard write age: 50 seconds
+oldest shard write age: 93 seconds
+shard counts: 342, 342, 338, 341, 341
+disk: /dev/root 969G total, 58G used, 912G free
+```
+
+No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
+started. The local branch was clean at `b6f54c874`; the active VM checkout
+remained at `f9c39f276` for the already-running process.
