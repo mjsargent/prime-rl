@@ -313,3 +313,22 @@ observed elapsed-time rate was about 0.0759 trajectories/second, leaving 8163
 A trajectories. No merged A artifact existed yet, and C, PCA-proxy, and
 math500 B had not started. The local branch was clean at `99a72cfb3`; the
 active VM checkout remained at `f9c39f276` for the already-running process.
+
+At 2026-05-29T13:50:02Z, `mega5x3` crossed a 1500-trajectory archive
+checkpoint and remained healthy:
+
+```text
+run_id prefix: phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_mega5x3
+trajectories: 1504 / 9600
+failed jobs: 0
+OOM/traceback/tensor-device/ModelError/no-space signatures: 0
+last shard write age: 6 seconds
+oldest shard write age: 56 seconds
+shard counts: 303, 302, 296, 302, 301
+snapshot: runs/gcp_snapshots/phase2_mega5x3_a_snapshot_20260529T1350Z.tgz
+```
+
+The archive contains the five active A shard directories and
+`runs/gcp_logs/phase2_mega5x3_STATUS.md`. No merged A artifact existed yet, and
+C, PCA-proxy, and math500 B had not started. The local branch was clean at
+`283d971a9`; the active VM checkout remained at `f9c39f276`.
