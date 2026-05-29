@@ -54,15 +54,25 @@ done
 nvidia-smi --query-gpu=index,memory.used,utilization.gpu --format=csv,noheader
 ```
 
-For Qwen3-8B float32 steering on A100-40GB, use two GPUs per worker:
+For Qwen3-8B float32 steering on A100-40GB, two GPUs per worker can load
+and start rollouts, but long verifier-loop contexts can OOM during VJP-based
+closed-loop steering. Use four GPUs per worker for Phase 2 verifier-scale
+comparators on A100-40GB:
 
 ```bash
-GPU_GROUPS='0,1;2,3;4,5;6,7' RUN_LABEL=gcp4x2 \
+GPU_GROUPS='0,1,2,3;4,5,6,7' RUN_LABEL=gcp2x4 \
 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
-bash scripts/run_phase2_gcp.sh
+bash -lc 'bash scripts/run_phase2_gcp.sh'
 ```
 
-One GPU per worker is not enough for this path: the model loads but rollout generation OOMs near 39.5 GiB used. H100-80GB can run one worker per GPU.
+One GPU per worker is not enough for this path: the model loads but rollout
+generation OOMs near 39.5 GiB used. Two GPUs per worker can also OOM once
+multi-turn prompts grow. H100-80GB can run one worker per GPU.
+
+If a Phase 2 comparator produces low reward or short outputs, treat those as
+reported comparator outcomes unless `failed_jobs.jsonl` is non-empty or the
+summary's `phase2_required_checks` fail. Phase 2 no longer uses the Phase 1.5
+quality/length smoke gates to stop the batch.
 
 ### Restarting a run
 

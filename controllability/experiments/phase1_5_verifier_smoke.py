@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import gc
 import json
 import subprocess
 import sys
@@ -69,6 +70,12 @@ def _append_jsonl(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a") as f:
         f.write(json.dumps(payload, default=make_serializable, sort_keys=True) + "\n")
+
+
+def _clear_cuda_cache() -> None:
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
 
 
 def _safe_id(value: str) -> str:
@@ -206,6 +213,15 @@ def _trajectory_from_vf_output(
     )
 
 
+def _rollout_error(output: vf.RolloutOutput) -> str | None:
+    error = output.get("error")
+    if not error:
+        return None
+    if isinstance(error, dict):
+        return str(error.get("error_chain_str") or error.get("error_chain_repr") or error)
+    return str(error)
+
+
 def _is_group_scoring(env: vf.Environment) -> bool:
     return any(env.rubric._is_group_func(func) for func in env.rubric._get_reward_funcs())
 
@@ -335,6 +351,10 @@ def _aggregate_linearization(diagnostics: list[dict[str, Any]]) -> dict[str, Any
     }
 
 
+def _is_phase2_run(config: dict[str, Any]) -> bool:
+    return str(config.get("summary_stage", "")).startswith("phase2")
+
+
 def run_smoke(
     config_path: Path,
     *,
@@ -437,41 +457,55 @@ def run_smoke(
     raw_rollouts = []
     failed = []
     linearization_diagnostics: list[dict[str, Any]] = []
+    max_rollout_retries = int(config.get("max_rollout_retries", 0))
 
     for job in jobs:
         torch.manual_seed(int(job["seed"]))
         edit_norm = float(config.get("eta_multiplier", 1.0)) * eta_by_coordinate[int(job["coordinate"])]
-        client = HFSteeredChatClient(
-            frozen,
-            basis=basis,
-            patch_layer=int(config["patch_layer"]),
-            readout_layer=int(config["readout_layer"]),
-            coordinate=int(job["coordinate"]),
-            sign=str(job["sign"]),
-            controller=str(job["controller"]),
-            edit_norm=edit_norm,
-            eta_star=eta_by_coordinate[int(job["coordinate"])],
-            linearization_probe_norm=float(config.get("linearization_probe_norm", 1e-3)),
-            linearization_diagnostic_scope=str(config.get("linearization_diagnostic_scope", "turn")),
-            max_prefix_tokens=int(config.get("max_prefix_tokens", 512)),
-            closed_loop_chunk_tokens=int(config.get("closed_loop_chunk_tokens", 8)),
-            closed_loop_budget_mode=str(config.get("closed_loop_budget_mode", "l2_per_turn")),
-            enable_thinking=bool(config.get("enable_thinking", False)),
-        )
         started = time.perf_counter()
+        client = None
         try:
-            if _is_group_scoring(env):
-                raise NotImplementedError("Phase 1.5 smoke does not yet support group-scored verifier environments")
-            output = asyncio.run(
-                env.run_rollout(
-                    _rollout_input_from_example(job["example"]),
-                    client=client,
-                    model=config["model_id"],
-                    sampling_args=sampling_args,
-                    max_retries=int(config.get("max_retries", 0)),
-                    state_columns=["trajectory", "sampling_args"],
+            output = None
+            last_error: str | None = None
+            for attempt in range(max_rollout_retries + 1):
+                client = HFSteeredChatClient(
+                    frozen,
+                    basis=basis,
+                    patch_layer=int(config["patch_layer"]),
+                    readout_layer=int(config["readout_layer"]),
+                    coordinate=int(job["coordinate"]),
+                    sign=str(job["sign"]),
+                    controller=str(job["controller"]),
+                    edit_norm=edit_norm,
+                    eta_star=eta_by_coordinate[int(job["coordinate"])],
+                    linearization_probe_norm=float(config.get("linearization_probe_norm", 1e-3)),
+                    linearization_diagnostic_scope=str(config.get("linearization_diagnostic_scope", "turn")),
+                    max_prefix_tokens=int(config.get("max_prefix_tokens", 512)),
+                    closed_loop_chunk_tokens=int(config.get("closed_loop_chunk_tokens", 8)),
+                    closed_loop_budget_mode=str(config.get("closed_loop_budget_mode", "l2_per_turn")),
+                    enable_thinking=bool(config.get("enable_thinking", False)),
+                    generate_use_cache=bool(config.get("generate_use_cache", True)),
                 )
-            )
+                if _is_group_scoring(env):
+                    raise NotImplementedError("Phase 1.5 smoke does not yet support group-scored verifier environments")
+                output = asyncio.run(
+                    env.run_rollout(
+                        _rollout_input_from_example(job["example"]),
+                        client=client,
+                        model=config["model_id"],
+                        sampling_args=sampling_args,
+                        max_retries=int(config.get("max_retries", 0)),
+                        state_columns=["trajectory", "sampling_args"],
+                    )
+                )
+                last_error = _rollout_error(output)
+                if last_error is None:
+                    break
+                _clear_cuda_cache()
+            if output is None:
+                raise RuntimeError("rollout produced no output")
+            if last_error is not None:
+                raise RuntimeError(last_error)
             raw_rollouts.append(dict(output))
             traj = _trajectory_from_vf_output(
                 output,
@@ -519,6 +553,10 @@ def run_smoke(
                 }
             )
             _append_jsonl(run_dir / "failed_jobs.jsonl", failed[-1])
+        finally:
+            client = None
+            if bool(config.get("empty_cache_between_jobs", True)):
+                _clear_cuda_cache()
 
     encoded_records = _write_encoded(
         run_dir,
@@ -551,7 +589,22 @@ def run_smoke(
         "configured_grid_complete": bool(completeness_configured["configured_complete"]),
         "turn_linearization_cosine_pass": not linearization_metrics["turn_linearization_cosine_below_0_7"],
     }
-    gate = "pass" if all(smoke_checks.values()) and not failed else "fail"
+    if _is_phase2_run(config):
+        phase2_required_checks = {
+            key: smoke_checks[key]
+            for key in (
+                "has_trajectories",
+                "has_tool_calls",
+                "encoder_active_fraction_pass",
+                "completeness_gate_self_test_pass",
+                "configured_grid_complete",
+                "turn_linearization_cosine_pass",
+            )
+        }
+        gate = "pass" if all(phase2_required_checks.values()) and not failed else "fail"
+    else:
+        phase2_required_checks = {}
+        gate = "pass" if all(smoke_checks.values()) and not failed else "fail"
     metrics = {
         "num_jobs": len(jobs),
         "num_total_jobs_unsharded": len(all_jobs),
@@ -568,6 +621,7 @@ def run_smoke(
         "completeness_gate_self_test": completeness_gate_test,
         **linearization_metrics,
         "smoke_checks": smoke_checks,
+        "phase2_required_checks": phase2_required_checks,
     }
     summary = {
         "stage": str(config.get("summary_stage", "phase1_5_verifier_smoke")),
@@ -579,7 +633,15 @@ def run_smoke(
         "config": config,
         "metrics": metrics,
         "gate": gate,
-        "gate_reason": "Phase 1.5 verifier-loop smoke criteria passed" if gate == "pass" else "Phase 1.5 verifier-loop smoke criteria failed; do not start Phase 2",
+        "gate_reason": (
+            "Phase 2 verifier-scale required checks passed"
+            if gate == "pass" and _is_phase2_run(config)
+            else "Phase 1.5 verifier-loop smoke criteria passed"
+            if gate == "pass"
+            else "Phase 2 verifier-scale required checks failed"
+            if _is_phase2_run(config)
+            else "Phase 1.5 verifier-loop smoke criteria failed; do not start Phase 2"
+        ),
         "limitations": [],
         "next_stage_inputs": {
             "encoded": f"runs/{run_id}/encoded.parquet",

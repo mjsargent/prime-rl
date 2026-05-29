@@ -282,6 +282,13 @@ def _fit_stage4_basis(frozen: FrozenModel, config: dict[str, Any]) -> dict[str, 
     }
 
 
+def _layer_device(layer: torch.nn.Module, *, fallback: torch.device) -> torch.device:
+    try:
+        return next(layer.parameters()).device
+    except StopIteration:
+        return fallback
+
+
 def _grad_hidden_for_coordinate(
     frozen: FrozenModel,
     basis: dict[str, Any],
@@ -290,13 +297,15 @@ def _grad_hidden_for_coordinate(
     coordinate: int,
     readout_layer: int,
 ) -> Tensor:
-    components = torch.as_tensor(basis["chart_components"], dtype=torch.float32, device=frozen.device)
     if basis["basis_kind"] == "linear_chart":
-        gradients = torch.as_tensor(basis["linear_gradients"], dtype=torch.float32, device=frozen.device)
+        component_device = _layer_device(frozen.layers[readout_layer], fallback=frozen.device)
+        components = torch.as_tensor(basis["chart_components"], dtype=torch.float32, device=component_device)
+        gradients = torch.as_tensor(basis["linear_gradients"], dtype=torch.float32, device=component_device)
         grad_z = gradients[int(coordinate)].reshape(1, -1)
         return (grad_z @ components).detach()
     residual = frozen.get_residual(token_ids, layer=readout_layer, position=-1).float()
-    mean = torch.as_tensor(basis["chart_mean"], dtype=torch.float32, device=frozen.device)
+    components = torch.as_tensor(basis["chart_components"], dtype=torch.float32, device=residual.device)
+    mean = torch.as_tensor(basis["chart_mean"], dtype=torch.float32, device=residual.device)
     z = (residual - mean) @ components.T
     model = basis["eigen_model"]
     normalized = ((z - model.z_mean) / model.z_std).detach().clone().requires_grad_(True)  # type: ignore[attr-defined]
@@ -348,6 +357,7 @@ def _generate_with_delta(
     top_k: int | None = None,
     min_p: float | None = None,
     repetition_penalty: float | None = None,
+    use_cache: bool = True,
 ) -> list[int]:
     input_ids = torch.tensor([token_ids], dtype=torch.long, device=frozen.device)
     kwargs: dict[str, Any] = {
@@ -356,6 +366,7 @@ def _generate_with_delta(
         "max_new_tokens": max_new_tokens,
         "do_sample": temperature > 0,
         "pad_token_id": frozen.tokenizer.eos_token_id,
+        "use_cache": bool(use_cache),
     }
     if temperature > 0:
         kwargs["temperature"] = temperature
@@ -367,7 +378,7 @@ def _generate_with_delta(
             kwargs["min_p"] = float(min_p)
     if repetition_penalty is not None and float(repetition_penalty) != 1.0:
         kwargs["repetition_penalty"] = float(repetition_penalty)
-    with residual_patch_hook(frozen.layers[patch_layer], -1, delta, apply_once=apply_once):
+    with torch.inference_mode(), residual_patch_hook(frozen.layers[patch_layer], -1, delta, apply_once=apply_once):
         generated = frozen.model.generate(**kwargs)
     return generated[0].detach().cpu().tolist()
 

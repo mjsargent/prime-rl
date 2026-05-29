@@ -48,6 +48,9 @@ top_k: 20
 min_p: 0.0
 repetition_penalty: 1.05
 max_prefix_tokens: 8192
+max_rollout_retries: 1
+empty_cache_between_jobs: true
+generate_use_cache: true
 
 dtype: float32
 device_map: auto

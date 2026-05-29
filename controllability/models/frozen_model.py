@@ -128,6 +128,8 @@ class FrozenModel:
         finally:
             patch_handle.remove()
             readout_handle.remove()
+            self.model.zero_grad(set_to_none=True)
+            captured.clear()
         return grad.detach()
 
     def patched_decode(
@@ -148,7 +150,7 @@ class FrozenModel:
         }
         if temperature > 0:
             generate_kwargs["temperature"] = temperature
-        with residual_patch_hook(self.layers[patch_layer], patch_position, delta, apply_once=True):
+        with torch.inference_mode(), residual_patch_hook(self.layers[patch_layer], patch_position, delta, apply_once=True):
             generated = self.model.generate(
                 **generate_kwargs,
             )

@@ -86,6 +86,7 @@ class HFSteeredChatClient(Client[FrozenModel, list[dict[str, Any]], Response, di
         closed_loop_chunk_tokens: int = 8,
         closed_loop_budget_mode: str = "l2_per_turn",
         enable_thinking: bool = False,
+        generate_use_cache: bool = True,
     ) -> None:
         super().__init__(frozen)
         self.basis = basis
@@ -102,6 +103,7 @@ class HFSteeredChatClient(Client[FrozenModel, list[dict[str, Any]], Response, di
         self.closed_loop_chunk_tokens = int(closed_loop_chunk_tokens)
         self.closed_loop_budget_mode = closed_loop_budget_mode
         self.enable_thinking = bool(enable_thinking)
+        self.generate_use_cache = bool(generate_use_cache)
         self.diagnostics: list[dict[str, Any]] = []
         self._response_index = 0
 
@@ -162,6 +164,7 @@ class HFSteeredChatClient(Client[FrozenModel, list[dict[str, Any]], Response, di
                 top_k=int(top_k) if top_k is not None else None,
                 min_p=float(min_p) if min_p is not None else None,
                 repetition_penalty=float(repetition_penalty) if repetition_penalty is not None else None,
+                use_cache=self.generate_use_cache,
             )
         else:
             delta, _direction, _grad_hidden = _direction_and_delta(
@@ -194,6 +197,7 @@ class HFSteeredChatClient(Client[FrozenModel, list[dict[str, Any]], Response, di
                     top_k=int(top_k) if top_k is not None else None,
                     min_p=float(min_p) if min_p is not None else None,
                     repetition_penalty=float(repetition_penalty) if repetition_penalty is not None else None,
+                    use_cache=self.generate_use_cache,
                 )
             elif self.controller == "open_loop":
                 self._record_linearization(
@@ -215,6 +219,7 @@ class HFSteeredChatClient(Client[FrozenModel, list[dict[str, Any]], Response, di
                     top_k=int(top_k) if top_k is not None else None,
                     min_p=float(min_p) if min_p is not None else None,
                     repetition_penalty=float(repetition_penalty) if repetition_penalty is not None else None,
+                    use_cache=self.generate_use_cache,
                 )
             elif self.controller == "closed_loop":
                 current = list(prefix_tokens)
@@ -260,6 +265,7 @@ class HFSteeredChatClient(Client[FrozenModel, list[dict[str, Any]], Response, di
                         top_k=int(top_k) if top_k is not None else None,
                         min_p=float(min_p) if min_p is not None else None,
                         repetition_penalty=float(repetition_penalty) if repetition_penalty is not None else None,
+                        use_cache=self.generate_use_cache,
                     )
                     remaining = max_new_tokens - (len(current) - len(prefix_tokens))
                     chunk_index += 1
@@ -303,8 +309,8 @@ class HFSteeredChatClient(Client[FrozenModel, list[dict[str, Any]], Response, di
         return None
 
     def _chart_residual(self, residual: torch.Tensor) -> torch.Tensor:
-        components = torch.as_tensor(self.basis["chart_components"], dtype=torch.float32, device=self.client.device)
-        mean = torch.as_tensor(self.basis["chart_mean"], dtype=torch.float32, device=self.client.device)
+        components = torch.as_tensor(self.basis["chart_components"], dtype=torch.float32, device=residual.device)
+        mean = torch.as_tensor(self.basis["chart_mean"], dtype=torch.float32, device=residual.device)
         return (residual.float() - mean) @ components.T
 
     def _record_linearization(
