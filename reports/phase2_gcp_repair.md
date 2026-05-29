@@ -237,3 +237,40 @@ with 0 failed jobs and no OOM/device-mismatch errors. The VM remained at
 is not worth the handoff risk. If the active run fails and must be restarted,
 restart from the newer pushed branch tip (`4728b8444` or later), which uses
 `uv run --locked`.
+
+At 2026-05-29T11:48:32Z, the active A-comparator run crossed the first archive
+checkpoint and continued running afterward:
+
+```text
+run_id prefix: phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_mega5x3
+trajectories: 1008 / 9600
+failed jobs: 0
+OOM/traceback/tensor-device/ModelError signatures: 0
+snapshot: runs/gcp_snapshots/phase2_mega5x3_a_snapshot_20260529T1148Z.tgz
+```
+
+At 2026-05-29T11:53:06Z, the same run was still live at 1024 trajectories, with
+0 failed jobs and no OOM/device-mismatch errors.
+
+A downstream handoff check found that the VM was missing the Stage 2
+parametric-B random baseline artifacts that Stage 5 loads from
+`stage2_parametric_b`. The artifacts existed locally and were copied to the VM:
+
+```text
+runs/stage2_v2_Qwen_Qwen3_8B_prime_swe_grep_parametric_b/random_baseline.json
+runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_parametric_b/random_baseline.json
+```
+
+The post-copy handoff check passed: the preexisting swe-grep B merged run was
+available and passing (`10800` trajectories, `0` failed jobs, encoder active
+fraction `0.8586`), both Stage 2 random baselines were present, and Stage 3
+aggregated geometry contained the expected formulations for swe-grep and
+math500 (`parametric_b`, `average_controllability_a`, `koopman_dmd_c`, and
+`original_graph`).
+
+The active VM checkout still cannot run `uv run --locked` because the old
+checkout reports that `uv.lock` needs updating against the current resolver
+metadata. This does not affect the already-running process, which was launched
+with plain `uv run`. For any restart, use the newer pushed branch tip
+(`6a1cb16c1` or later), where `scripts/run_phase2_gcp.sh` uses
+`uv run --locked`.
