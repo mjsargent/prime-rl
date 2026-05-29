@@ -101,3 +101,18 @@ restarted as `gcp2x4f` on `controllability-phase2-a2` with two 4-GPU workers.
 At 2026-05-29T06:34:48Z it had produced 8 trajectories per shard, 0 failed jobs,
 and no OOM/device-mismatch errors. Throughput is much slower than H100 but the
 implementation repair is holding.
+
+To improve throughput while keeping the user-requested one-node limit, a single
+`a2-megagpu-16g` 16xA100 node was created in `us-central1-c` after GCP reported
+capacity there. The smaller 8xA100 node was stopped first. The new run label is
+`mega4x4`, using four 4-GPU workers:
+
+```bash
+GPU_GROUPS='0,1,2,3;4,5,6,7;8,9,10,11;12,13,14,15' \
+RUN_LABEL=mega4x4 \
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+bash scripts/run_phase2_gcp.sh
+```
+
+At 2026-05-29T07:07:32Z the 16xA100 run had produced 2 trajectories per shard
+across 4 shards, 0 failed jobs, and no OOM/device-mismatch errors.
