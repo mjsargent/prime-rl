@@ -21,7 +21,12 @@ import yaml
 from verifiers.utils.save_utils import make_serializable
 
 from controllability.envs.hf_steered_client import HFSteeredChatClient
-from controllability.envs.trajectory_schema import SteeringMetadata, Trajectory, trajectory_to_record
+from controllability.envs.trajectory_schema import (
+    SteeringMetadata,
+    Trajectory,
+    trajectory_from_record,
+    trajectory_to_record,
+)
 from controllability.experiments.stage4_trajectory_generation import _fit_stage4_basis, _write_encoded
 from controllability.models.frozen_model import FrozenModel
 from controllability.reports.audit_table import append_audit_row
@@ -271,6 +276,43 @@ def _jobs(config: dict[str, Any], examples: list[dict[str, Any]]) -> list[dict[s
     return jobs
 
 
+def _job_id_from_trajectory_record(record: dict[str, Any]) -> str | None:
+    prompt_id = str(record.get("prompt_id", ""))
+    suffix = prompt_id.rsplit(":", 1)[-1]
+    if suffix.startswith("job_"):
+        return suffix
+    return None
+
+
+def _load_existing_trajectories(path: Path) -> tuple[list[Trajectory], set[str]]:
+    if not path.exists():
+        return [], set()
+    trajectories: list[Trajectory] = []
+    job_ids: set[str] = set()
+    with path.open() as f:
+        for line in f:
+            if not line.strip():
+                continue
+            record = json.loads(line)
+            trajectories.append(trajectory_from_record(record))
+            job_id = _job_id_from_trajectory_record(record)
+            if job_id is not None:
+                job_ids.add(job_id)
+    return trajectories, job_ids
+
+
+def _archive_existing_failed_jobs(run_dir: Path) -> int:
+    path = run_dir / "failed_jobs.jsonl"
+    if not path.exists():
+        return 0
+    with path.open() as f:
+        count = sum(1 for line in f if line.strip())
+    if count:
+        archived = run_dir / f"failed_jobs.resume_{_utc_now().replace(':', '').replace('-', '')}.jsonl"
+        path.rename(archived)
+    return count
+
+
 def _write_summary_and_audit(
     run_dir: Path,
     summary: dict[str, Any],
@@ -433,6 +475,15 @@ def run_smoke(
         jobs = [job for index, job in enumerate(all_jobs) if index % num_shards == shard_index]
     else:
         jobs = all_jobs
+    resume_existing = bool(config.get("resume_existing", False))
+    existing_trajectories: list[Trajectory] = []
+    existing_job_ids: set[str] = set()
+    archived_failed_count = 0
+    if resume_existing:
+        existing_trajectories, existing_job_ids = _load_existing_trajectories(run_dir / "trajectories.jsonl")
+        archived_failed_count = _archive_existing_failed_jobs(run_dir)
+        if existing_job_ids:
+            jobs = [job for job in jobs if job["job_id"] not in existing_job_ids]
     stage3_rows = _load_json(config["stage3_aggregated_path"])["rows"]
     eta_by_coordinate = {
         int(row["coordinate"]): float(row["eta_star_mean"])
@@ -453,7 +504,7 @@ def run_smoke(
     for key in ("top_p", "top_k", "min_p", "repetition_penalty"):
         if key in config:
             sampling_args[key] = config[key]
-    trajectories = []
+    trajectories = list(existing_trajectories)
     raw_rollouts = []
     failed = []
     linearization_diagnostics: list[dict[str, Any]] = []
@@ -612,6 +663,10 @@ def run_smoke(
     metrics = {
         "num_jobs": len(jobs),
         "num_total_jobs_unsharded": len(all_jobs),
+        "resume_existing": resume_existing,
+        "num_existing_trajectories": len(existing_trajectories),
+        "num_skipped_existing_jobs": len(existing_job_ids),
+        "num_archived_failed_jobs": archived_failed_count,
         "job_shard_index": int(shard_index) if shard_index is not None else None,
         "num_job_shards": int(num_shards) if num_shards is not None else None,
         "num_trajectories": len(trajectories),
