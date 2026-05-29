@@ -122,7 +122,21 @@ The repo provides a one-shot helper for this:
 RUN_LABEL=mega5x3 bash scripts/phase2_status_snapshot.sh
 ```
 
-It appends a markdown snapshot under `runs/gcp_logs/` and prints the tail.
+It appends a markdown snapshot under `runs/gcp_logs/` and prints the tail. The
+snapshot includes active A/C/PCA/MATH process counts, stage subtotals, shard
+write ages, A-comparator ETA, merged-output presence, error signatures, and disk
+usage. From a local workstation, prefer a simple remote helper invocation over a
+long nested quoted diagnostic:
+
+```bash
+gcloud compute ssh controllability-phase2-a2-16-uscentral1c \
+  --zone=us-central1-c \
+  --tunnel-through-iap \
+  --command='cd ~/prime-rl-phase2 && RUN_LABEL=mega5x3 bash scripts/phase2_status_snapshot.sh'
+```
+
+For unusually complex one-off SSH diagnostics, pass the remote shell through
+stdin with `--command='bash -s' <<'REMOTE'` to avoid local quoting failures.
 
 ### Restarting a run
 
