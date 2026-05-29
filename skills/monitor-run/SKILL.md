@@ -105,6 +105,11 @@ bounded sample of per-turn linearization probes. Full per-trajectory probes are
 too slow on A100-40GB because every probe does extra patched forwards through
 long multi-turn contexts.
 
+Use `uv run --locked ...` for Phase 2 monitoring and relaunch commands unless
+you intentionally need to update the lockfile. Plain `uv run` can rewrite
+`uv.lock` on the GCP VM because of project-level exclude-newer settings, leaving
+the long-running worktree dirty even when no source files changed.
+
 ### Restarting a run
 
 **IMPORTANT**: Never restart a run unless you were explicitly instructed by the researcher. If you were given permission, make sure to ask the researcher for the exact command to resume a run and under what conditions a restart is necessary.

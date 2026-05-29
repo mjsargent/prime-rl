@@ -29,7 +29,7 @@ stage6_configs=(
 )
 
 run_id_for_config() {
-  uv run python -c 'import sys, yaml; print(yaml.safe_load(open(sys.argv[1]))["run_id"])' "$1"
+  uv run --locked python -c 'import sys, yaml; print(yaml.safe_load(open(sys.argv[1]))["run_id"])' "$1"
 }
 
 run_phase2_config() {
@@ -56,7 +56,7 @@ run_phase2_config() {
     shard_padded="$(printf "%02d" "$shard")"
     (
       export CUDA_VISIBLE_DEVICES="${gpu_groups[$shard]}"
-      uv run python -m controllability.experiments.phase1_5_verifier_smoke \
+      uv run --locked python -m controllability.experiments.phase1_5_verifier_smoke \
         --config "$config" \
         --job-shard-index "$shard" \
         --num-job-shards "$NUM_SHARDS" \
@@ -76,7 +76,7 @@ run_phase2_config() {
     return "$status"
   fi
 
-  uv run python -m controllability.reports.merge_phase2_shards \
+  uv run --locked python -m controllability.reports.merge_phase2_shards \
     --base-run-id "$base_run_id" \
     --output-run-id "$output_run_id" \
     --num-shards "$NUM_SHARDS"
@@ -89,12 +89,12 @@ done
 
 for config in "${stage5_configs[@]}"; do
   echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] stage5 start ${config}"
-  uv run python -m controllability.experiments.stage5_identifiability --config "$config"
+  uv run --locked python -m controllability.experiments.stage5_identifiability --config "$config"
 done
 
 for config in "${stage6_configs[@]}"; do
   echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] stage6 start ${config}"
-  uv run python -m controllability.experiments.stage6_geometric_behavioral_correlation --config "$config"
+  uv run --locked python -m controllability.experiments.stage6_geometric_behavioral_correlation --config "$config"
 done
 
 echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] Phase 2 comparator/replication batch complete"

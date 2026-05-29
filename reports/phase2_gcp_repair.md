@@ -221,3 +221,11 @@ with 0 failed jobs and no OOM/device-mismatch errors. The VM `uv.lock` drift
 from `uv run` was backed up under `/tmp` and restored to the pushed branch
 version so future `uv run` invocations for C/PCA/math500 and Stage 5/6 use the
 checked-in lockfile. The active A workers continued running.
+
+At 2026-05-29T10:21:45Z, a CPU-only downstream config wiring check confirmed
+that the Stage 5/6 config files exist and point to the expected pending merged
+outputs. The check also reproduced the `uv.lock` rewrite from plain `uv run`;
+the VM lockfile was restored again. `scripts/run_phase2_gcp.sh` and the monitor
+runbook were patched to use `uv run --locked` for future restarts and monitoring
+commands. The currently active A process was already launched from the previous
+script contents and was not interrupted.
