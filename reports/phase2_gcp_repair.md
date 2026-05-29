@@ -206,3 +206,12 @@ across 5 shards, 0 failed jobs, and no OOM/device-mismatch errors. Observed
 throughput from the shard trajectory timestamps was about 269 trajectories/hour
 across the five workers. At that rate the full A-comparator target of 9600
 trajectories has roughly 34 hours remaining.
+
+At 2026-05-29T10:11:04Z, the GCP VM branch pointer was aligned to pushed commit
+`479de9db5` while the active A-comparator workers continued running. This fixed
+the hot-patch reproducibility issue where the VM had been running staged
+patched files on an older `HEAD`. The running A shards were already started from
+the hot-patched worktree; future C/PCA/math500 and Stage 5/6 processes will
+record the pushed commit hash. The VM still had an unstaged `uv.lock` rewrite
+from `uv run` and two untracked probe configs; those are not used by the active
+Phase 2 comparator configs.
