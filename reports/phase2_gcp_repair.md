@@ -215,3 +215,9 @@ the hot-patched worktree; future C/PCA/math500 and Stage 5/6 processes will
 record the pushed commit hash. The VM still had an unstaged `uv.lock` rewrite
 from `uv run` and two untracked probe configs; those are not used by the active
 Phase 2 comparator configs.
+
+At 2026-05-29T10:18:23Z, `mega5x3` had produced 521 A-comparator trajectories
+with 0 failed jobs and no OOM/device-mismatch errors. The VM `uv.lock` drift
+from `uv run` was backed up under `/tmp` and restored to the pushed branch
+version so future `uv run` invocations for C/PCA/math500 and Stage 5/6 use the
+checked-in lockfile. The active A workers continued running.
