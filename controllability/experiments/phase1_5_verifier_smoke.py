@@ -459,7 +459,8 @@ def run_smoke(
     linearization_diagnostics: list[dict[str, Any]] = []
     max_rollout_retries = int(config.get("max_rollout_retries", 0))
 
-    for job in jobs:
+    diagnostic_max_jobs = config.get("linearization_diagnostic_max_jobs")
+    for job_index, job in enumerate(jobs):
         torch.manual_seed(int(job["seed"]))
         edit_norm = float(config.get("eta_multiplier", 1.0)) * eta_by_coordinate[int(job["coordinate"])]
         started = time.perf_counter()
@@ -467,6 +468,9 @@ def run_smoke(
         try:
             output = None
             last_error: str | None = None
+            diagnostic_scope = str(config.get("linearization_diagnostic_scope", "turn"))
+            if diagnostic_max_jobs is not None and job_index >= int(diagnostic_max_jobs):
+                diagnostic_scope = "none"
             for attempt in range(max_rollout_retries + 1):
                 client = HFSteeredChatClient(
                     frozen,
@@ -479,7 +483,7 @@ def run_smoke(
                     edit_norm=edit_norm,
                     eta_star=eta_by_coordinate[int(job["coordinate"])],
                     linearization_probe_norm=float(config.get("linearization_probe_norm", 1e-3)),
-                    linearization_diagnostic_scope=str(config.get("linearization_diagnostic_scope", "turn")),
+                    linearization_diagnostic_scope=diagnostic_scope,
                     max_prefix_tokens=int(config.get("max_prefix_tokens", 512)),
                     closed_loop_chunk_tokens=int(config.get("closed_loop_chunk_tokens", 8)),
                     closed_loop_budget_mode=str(config.get("closed_loop_budget_mode", "l2_per_turn")),

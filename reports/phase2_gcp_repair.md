@@ -39,6 +39,9 @@ zero-token trajectories rather than failed jobs.
   reported outcomes, not stop-the-batch smoke gates.
 - Fix multi-GPU chart projection for 4-GPU A100 device maps by placing chart
   tensors on the readout residual device.
+- Bound Phase 2 linearization diagnostics with `linearization_diagnostic_max_jobs`
+  so each shard records per-turn linearization fidelity on a sample instead of
+  running two extra patched forwards for every trajectory.
 
 ## Validation
 

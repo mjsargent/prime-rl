@@ -178,13 +178,14 @@ class HFSteeredChatClient(Client[FrozenModel, list[dict[str, Any]], Response, di
                 readout_layer=self.readout_layer,
             )
             if self.controller == "one_shot":
-                self._record_linearization(
-                    prefix_tokens,
-                    delta=delta,
-                    response_index=response_index,
-                    chunk_index=0,
-                    cumulative_edit_norm=float(delta.float().norm().detach().cpu()),
-                )
+                if self._should_record_linearization(0):
+                    self._record_linearization(
+                        prefix_tokens,
+                        delta=delta,
+                        response_index=response_index,
+                        chunk_index=0,
+                        cumulative_edit_norm=float(delta.float().norm().detach().cpu()),
+                    )
                 generated = _generate_with_delta(
                     self.client,
                     prefix_tokens,
@@ -200,13 +201,14 @@ class HFSteeredChatClient(Client[FrozenModel, list[dict[str, Any]], Response, di
                     use_cache=self.generate_use_cache,
                 )
             elif self.controller == "open_loop":
-                self._record_linearization(
-                    prefix_tokens,
-                    delta=delta,
-                    response_index=response_index,
-                    chunk_index=0,
-                    cumulative_edit_norm=float(delta.float().norm().detach().cpu()),
-                )
+                if self._should_record_linearization(0):
+                    self._record_linearization(
+                        prefix_tokens,
+                        delta=delta,
+                        response_index=response_index,
+                        chunk_index=0,
+                        cumulative_edit_norm=float(delta.float().norm().detach().cpu()),
+                    )
                 generated = _generate_with_delta(
                     self.client,
                     prefix_tokens,
@@ -245,7 +247,7 @@ class HFSteeredChatClient(Client[FrozenModel, list[dict[str, Any]], Response, di
                         readout_layer=self.readout_layer,
                     )
                     cumulative_edit_norm_sq += float((delta.float() @ delta.float()).detach().cpu())
-                    if self.linearization_diagnostic_scope == "all_chunks" or chunk_index == 0:
+                    if self._should_record_linearization(chunk_index):
                         self._record_linearization(
                             current,
                             delta=delta,
@@ -307,6 +309,13 @@ class HFSteeredChatClient(Client[FrozenModel, list[dict[str, Any]], Response, di
 
     async def close(self) -> None:
         return None
+
+    def _should_record_linearization(self, chunk_index: int) -> bool:
+        if self.linearization_diagnostic_scope == "none":
+            return False
+        if self.linearization_diagnostic_scope == "all_chunks":
+            return True
+        return chunk_index == 0
 
     def _chart_residual(self, residual: torch.Tensor) -> torch.Tensor:
         components = torch.as_tensor(self.basis["chart_components"], dtype=torch.float32, device=residual.device)
