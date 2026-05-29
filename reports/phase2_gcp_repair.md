@@ -448,3 +448,25 @@ The archive contains the five active A shard `trajectories.jsonl` and
 merged A artifact existed yet, and C, PCA-proxy, and math500 B had not started.
 The local branch was clean at `4aa9fe2d4`; the active VM checkout remained at
 `f9c39f276` for the already-running process.
+
+At 2026-05-29T16:19:24Z, `mega5x3` remained healthy:
+
+```text
+run_id prefix: phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_mega5x3
+trajectories: 2246 / 9600
+failed jobs: 0
+OOM/traceback/tensor-device/ModelError/no-space signatures: 0
+workers: A=10, C=0, PCA=0, MATH=0
+last shard write age: 8 seconds
+oldest shard write age: 22 seconds
+shard counts: 453, 451, 440, 450, 452
+disk: /dev/root 969G total, 58G used, 912G free
+```
+
+The local `matthew@vmax.ai` gcloud credential required interactive
+reauthentication at this checkpoint, but the VM was still reachable
+non-interactively by using `research-ops@vmax-rl.iam.gserviceaccount.com` for
+the IAP ProxyCommand and the existing `matthew_vmax_ai_com` SSH key for the VM
+user. No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
+started. The local branch was clean at `e7abf42ff`; the active VM checkout
+remained at `f9c39f276` for the already-running process.

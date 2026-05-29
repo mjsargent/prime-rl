@@ -146,6 +146,21 @@ only `stage2_parametric_b`.
 For unusually complex one-off SSH diagnostics, pass the remote shell through
 stdin with `--command='bash -s' <<'REMOTE'` to avoid local quoting failures.
 
+If the active user account needs interactive `gcloud` reauthentication, but the
+`research-ops@vmax-rl.iam.gserviceaccount.com` account can still access the
+Compute/IAP APIs, use a raw SSH command through an IAP ProxyCommand so OS Login
+does not force the service-account VM username:
+
+```bash
+ssh -i ~/.ssh/google_compute_engine \
+  -o 'ProxyCommand=gcloud compute start-iap-tunnel controllability-phase2-a2-16-uscentral1c 22 --listen-on-stdin --zone=us-central1-c --project=vmax-rl --account=research-ops@vmax-rl.iam.gserviceaccount.com' \
+  -o StrictHostKeyChecking=no \
+  -o UserKnownHostsFile=/dev/null \
+  -o LogLevel=ERROR \
+  matthew_vmax_ai_com@10.128.0.85 \
+  'cd ~/prime-rl-phase2 && RUN_LABEL=mega5x3 bash -s' < scripts/phase2_status_snapshot.sh
+```
+
 ### Restarting a run
 
 **IMPORTANT**: Never restart a run unless you were explicitly instructed by the researcher. If you were given permission, make sure to ask the researcher for the exact command to resume a run and under what conditions a restart is necessary.
