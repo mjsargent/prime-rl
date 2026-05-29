@@ -470,3 +470,22 @@ the IAP ProxyCommand and the existing `matthew_vmax_ai_com` SSH key for the VM
 user. No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
 started. The local branch was clean at `e7abf42ff`; the active VM checkout
 remained at `f9c39f276` for the already-running process.
+
+At 2026-05-29T17:11:02Z, `mega5x3` crossed 2500 A-comparator trajectories and
+remained healthy:
+
+```text
+run_id prefix: phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_mega5x3
+trajectories: 2540 / 9600
+failed jobs: 0
+OOM/traceback/tensor-device/ModelError/no-space signatures: 0
+workers: A=10, C=0, PCA=0, MATH=0
+last shard write age: 6 seconds
+oldest shard write age: 62 seconds
+shard counts: 512, 510, 497, 510, 511
+disk: /dev/root 969G total, 58G used, 912G free
+```
+
+No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
+started. The active VM checkout remained at `f9c39f276` for the already-running
+process.
