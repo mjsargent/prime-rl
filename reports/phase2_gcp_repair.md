@@ -116,3 +116,31 @@ bash scripts/run_phase2_gcp.sh
 
 At 2026-05-29T07:07:32Z the 16xA100 run had produced 2 trajectories per shard
 across 4 shards, 0 failed jobs, and no OOM/device-mismatch errors.
+
+Because the 4-GPU layout was still too slow, a bounded 2-GPU worker probe was
+run on the same 16xA100 node after the OOM fixes:
+
+```text
+run_id: phase2_probe_swe_grep_average_a_2gpu_after_oom_fixes
+num_trajectories: 16
+num_failed: 0
+tool_call_count: 112
+mean_generated_tokens: 213
+median_turn_linearization_cosine: 0.9999966621398926
+median_turn_linearization_r2: 0.9999886155128479
+```
+
+The probe failed only the one-prompt encoder active-fraction gate, which is
+expected for such a small smoke and not an OOM/memory failure. The full Phase 2
+batch was therefore relaunched as `mega8x2`, using eight 2-GPU workers on the
+single 16xA100 node:
+
+```bash
+GPU_GROUPS='0,1;2,3;4,5;6,7;8,9;10,11;12,13;14,15' \
+RUN_LABEL=mega8x2 \
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+bash scripts/run_phase2_gcp.sh
+```
+
+At 2026-05-29T07:37:42Z, `mega8x2` had produced 17 trajectories across 8
+shards, 0 failed jobs, and no OOM/device-mismatch errors.
