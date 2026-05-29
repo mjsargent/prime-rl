@@ -42,6 +42,9 @@ zero-token trajectories rather than failed jobs.
 - Bound Phase 2 linearization diagnostics with `linearization_diagnostic_max_jobs: 16`
   so each shard records per-turn linearization fidelity on a sample instead of
   running two extra patched forwards for every trajectory.
+- Harden `scripts/run_phase2_gcp.sh` by prefixing `~/.local/bin` onto `PATH`.
+  The GCP VM found `uv` in interactive shells, but a non-login `nohup` launch
+  failed with `uv: command not found`.
 
 ## Validation
 
@@ -84,3 +87,17 @@ GPU_GROUPS='0,1,2,3;4,5,6,7' RUN_LABEL=gcp2x4 \
 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
 bash -lc 'bash scripts/run_phase2_gcp.sh'
 ```
+
+## Capacity Notes
+
+The preferred throughput path is one 8xH100 node. Attempts to start existing
+8xH100 instances in `us-central1-a` and `europe-west4-b` failed with
+`ZONE_RESOURCE_POOL_EXHAUSTED_WITH_DETAILS` stockout. Attempts to create fresh
+8xH100 nodes in alternate regions either hit zero regional H100
+`GPUS_PER_GPU_FAMILY` quota or unsupported/stockout configurations.
+
+After preserving the partial A100 output, the repaired A100 fallback was
+restarted as `gcp2x4f` on `controllability-phase2-a2` with two 4-GPU workers.
+At 2026-05-29T06:34:48Z it had produced 8 trajectories per shard, 0 failed jobs,
+and no OOM/device-mismatch errors. Throughput is much slower than H100 but the
+implementation repair is holding.
