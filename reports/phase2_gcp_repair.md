@@ -200,3 +200,9 @@ At 2026-05-29T09:32:32Z, `mega5x3` had produced 343 A-comparator trajectories
 across 5 shards, 0 failed jobs, and no OOM/device-mismatch errors. Mean reward
 across the observed trajectories was 0.951, and post-diagnostic throughput was
 about 52-54 seconds per trajectory per worker.
+
+At 2026-05-29T10:05:32Z, `mega5x3` had produced 468 A-comparator trajectories
+across 5 shards, 0 failed jobs, and no OOM/device-mismatch errors. Observed
+throughput from the shard trajectory timestamps was about 269 trajectories/hour
+across the five workers. At that rate the full A-comparator target of 9600
+trajectories has roughly 34 hours remaining.

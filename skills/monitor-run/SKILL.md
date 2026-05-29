@@ -85,7 +85,10 @@ bash scripts/run_phase2_gcp.sh
 Eight 2-GPU workers are not safe for full swe-grep Phase 2 even if a tiny
 one-prompt probe passes: longer prompts produced `ModelError ->
 OutOfMemoryError` failed jobs around the second prompt. A two-prompt 3-GPU probe
-completed 32/32 trajectories with 0 failed jobs.
+completed 32/32 trajectories with 0 failed jobs. In the full `mega5x3`
+A-comparator run, a 468-trajectory stability sample had 0 failed jobs and
+throughput around 269 trajectories/hour across all five workers, so a 9600-cell
+comparator takes roughly 36 hours on this fallback node.
 
 If an existing or fresh H100 node is unavailable, document the exact GCP error
 (`ZONE_RESOURCE_POOL_EXHAUSTED_WITH_DETAILS` stockout or zero regional
