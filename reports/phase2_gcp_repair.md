@@ -229,3 +229,11 @@ the VM lockfile was restored again. `scripts/run_phase2_gcp.sh` and the monitor
 runbook were patched to use `uv run --locked` for future restarts and monitoring
 commands. The currently active A process was already launched from the previous
 script contents and was not interrupted.
+
+At 2026-05-29T10:33:25Z, `mega5x3` had produced 590 A-comparator trajectories
+with 0 failed jobs and no OOM/device-mismatch errors. The VM remained at
+`f9c39f276` because the active bash runner has already opened
+`scripts/run_phase2_gcp.sh`; replacing that script under a running bash process
+is not worth the handoff risk. If the active run fails and must be restarted,
+restart from the newer pushed branch tip (`4728b8444` or later), which uses
+`uv run --locked`.
