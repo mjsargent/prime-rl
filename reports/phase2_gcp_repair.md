@@ -281,3 +281,25 @@ metadata. This does not affect the already-running process, which was launched
 with plain `uv run`. For any restart, use the newer pushed branch tip
 (`6a1cb16c1` or later), where `scripts/run_phase2_gcp.sh` uses
 `uv run --locked`.
+
+At 2026-05-29T12:57:41Z, the active A-comparator run had crossed the second
+archive checkpoint and remained healthy:
+
+```text
+run_id prefix: phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_mega5x3
+trajectories: 1272 / 9600
+failed jobs: 0
+OOM/traceback/tensor-device/ModelError/no-space signatures: 0
+last shard write age: 26 seconds
+oldest shard write age: 125 seconds
+snapshot: runs/gcp_snapshots/phase2_mega5x3_a_snapshot_20260529T1257Z.tgz
+```
+
+At 2026-05-29T13:12:35Z, `mega5x3` was still live at 1368 A-comparator
+trajectories with 0 failed jobs, no OOM/device-mismatch/ModelError/no-space
+signatures, and recent shard writes. The observed elapsed-time rate was about
+0.0776 trajectories/second across the five 3-GPU workers, leaving roughly
+29.5 hours for A at the current average. No merged A artifact existed yet, and
+C, PCA-proxy, and math500 B had not started. The local branch was clean at
+`ad88b5388`; the active VM checkout remained at `f9c39f276` for the already
+running process.
