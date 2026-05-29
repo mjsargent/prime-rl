@@ -116,6 +116,14 @@ processes that add noise without improving recovery. If you do generate markdown
 shard lines in shell, avoid `printf "- ..."` because bash can parse the leading
 dash as an option; use `printf "%s\n" "- shard: ..."` instead.
 
+The repo provides a one-shot helper for this:
+
+```bash
+RUN_LABEL=mega5x3 bash scripts/phase2_status_snapshot.sh
+```
+
+It appends a markdown snapshot under `runs/gcp_logs/` and prints the tail.
+
 ### Restarting a run
 
 **IMPORTANT**: Never restart a run unless you were explicitly instructed by the researcher. If you were given permission, make sure to ask the researcher for the exact command to resume a run and under what conditions a restart is necessary.
