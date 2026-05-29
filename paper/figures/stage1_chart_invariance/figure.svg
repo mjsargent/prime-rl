@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480">
+<rect width="100%" height="100%" fill="white"/>
+<text x="36.00" y="34.00" font-family="Helvetica,Arial,sans-serif" font-size="18" fill="#20242a" text-anchor="start">Stage 1 Chart Invariance</text>
+<text x="142.00" y="115.96" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="end">PCA</text>
+<text x="179.00" y="68.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="middle">PCA</text>
+<rect x="150.00" y="80.00" width="58.00" height="58.00" fill="#3566a8" stroke="#ffffff" stroke-width="1"/>
+<text x="167.00" y="113.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">1.00</text>
+<rect x="208.00" y="80.00" width="58.00" height="58.00" fill="#6388bb" stroke="#ffffff" stroke-width="1"/>
+<text x="225.00" y="113.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.75</text>
+<rect x="266.00" y="80.00" width="58.00" height="58.00" fill="#5d84b8" stroke="#ffffff" stroke-width="1"/>
+<text x="283.00" y="113.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.78</text>
+<rect x="324.00" y="80.00" width="58.00" height="58.00" fill="#7797c3" stroke="#ffffff" stroke-width="1"/>
+<text x="341.00" y="113.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.64</text>
+<text x="142.00" y="173.96" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="end">contrastive</text>
+<text x="237.00" y="68.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="middle">contrastive</text>
+<rect x="150.00" y="138.00" width="58.00" height="58.00" fill="#6388bb" stroke="#ffffff" stroke-width="1"/>
+<text x="167.00" y="171.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.75</text>
+<rect x="208.00" y="138.00" width="58.00" height="58.00" fill="#3566a8" stroke="#ffffff" stroke-width="1"/>
+<text x="225.00" y="171.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">1.00</text>
+<rect x="266.00" y="138.00" width="58.00" height="58.00" fill="#5f86b9" stroke="#ffffff" stroke-width="1"/>
+<text x="283.00" y="171.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.77</text>
+<rect x="324.00" y="138.00" width="58.00" height="58.00" fill="#6b8fbe" stroke="#ffffff" stroke-width="1"/>
+<text x="341.00" y="171.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.71</text>
+<text x="142.00" y="231.96" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="end">flow</text>
+<text x="295.00" y="68.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="middle">flow</text>
+<rect x="150.00" y="196.00" width="58.00" height="58.00" fill="#5d84b8" stroke="#ffffff" stroke-width="1"/>
+<text x="167.00" y="229.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.78</text>
+<rect x="208.00" y="196.00" width="58.00" height="58.00" fill="#5f86b9" stroke="#ffffff" stroke-width="1"/>
+<text x="225.00" y="229.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.77</text>
+<rect x="266.00" y="196.00" width="58.00" height="58.00" fill="#3566a8" stroke="#ffffff" stroke-width="1"/>
+<text x="283.00" y="229.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">1.00</text>
+<rect x="324.00" y="196.00" width="58.00" height="58.00" fill="#7495c2" stroke="#ffffff" stroke-width="1"/>
+<text x="341.00" y="229.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.66</text>
+<text x="142.00" y="289.96" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="end">transition_PCA</text>
+<text x="353.00" y="68.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="middle">transition_PCA</text>
+<rect x="150.00" y="254.00" width="58.00" height="58.00" fill="#7797c3" stroke="#ffffff" stroke-width="1"/>
+<text x="167.00" y="287.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.64</text>
+<rect x="208.00" y="254.00" width="58.00" height="58.00" fill="#6b8fbe" stroke="#ffffff" stroke-width="1"/>
+<text x="225.00" y="287.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.71</text>
+<rect x="266.00" y="254.00" width="58.00" height="58.00" fill="#7495c2" stroke="#ffffff" stroke-width="1"/>
+<text x="283.00" y="287.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.66</text>
+<rect x="324.00" y="254.00" width="58.00" height="58.00" fill="#3566a8" stroke="#ffffff" stroke-width="1"/>
+<text x="341.00" y="287.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">1.00</text>
+<text x="150.00" y="350.00" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#7a7f87" text-anchor="start">Cell value: subspace overlap / agreement</text>
+</svg>

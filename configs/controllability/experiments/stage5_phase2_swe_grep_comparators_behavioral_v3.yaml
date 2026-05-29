@@ -1,0 +1,29 @@
+run_id: stage5_phase2_swe_grep_comparators_behavioral_v3
+model_id: Qwen/Qwen3-8B
+controller: closed_loop
+sign: any
+seed: 42
+test_fraction: 0.25
+n_bootstrap: 500
+logistic_steps: 400
+coherence_floor: 1.0
+quality_floors:
+  - 0.0
+  - 0.25
+  - 0.5
+  - 0.75
+  - 1.0
+environments:
+  swe_grep:
+    env_id: prime/swe-grep
+    stage2_parametric_b: runs/stage2_v2_Qwen_Qwen3_8B_prime_swe_grep_parametric_b
+    stage4_runs:
+      parametric_b: phase2_swe_grep_parametric_b_behavioral_v3_qwen_tooluse_float32_merged
+      average_controllability_a: phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_merged
+      koopman_dmd_c: phase2_swe_grep_koopman_dmd_c_behavioral_v3_qwen_tooluse_float32_merged
+      original_graph: phase2_swe_grep_pca_proxy_behavioral_v3_qwen_tooluse_float32_merged
+limitations:
+  - This Stage 5 run compares Phase 2 verifier-scale swe-grep B/A/C/PCA-proxy trajectories with behavioral_encoder_v3.
+  - The original_graph entry is intentionally interpreted as the PCA-proxy comparator because off-sample graph eigenfunctions are not available.
+  - The coordinate discriminator collapses sign by using both + and - trajectories for the same coordinate class and evaluates the closed_loop controller only.
+  - Temperature-as-skill and SAE baselines are represented as not_evaluated rows because their verifier-scale Stage 4 rollouts/artifacts are absent.

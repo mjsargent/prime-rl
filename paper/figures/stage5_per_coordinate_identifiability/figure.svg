@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480">
+<rect width="100%" height="100%" fill="white"/>
+<text x="36.00" y="34.00" font-family="Helvetica,Arial,sans-serif" font-size="18" fill="#20242a" text-anchor="start">Per-Coordinate Identifiability</text>
+<line x1="64.00" y1="387.00" x2="654.00" y2="387.00" stroke="#20242a" stroke-width="1.00"/>
+<line x1="64.00" y1="72.00" x2="64.00" y2="387.00" stroke="#20242a" stroke-width="1.00"/>
+<text x="16.00" y="229.50" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#20242a" text-anchor="start">identifiability</text>
+<line x1="64.00" y1="321.07" x2="654.00" y2="321.07" stroke="#7a7f87" stroke-width="1.00"/>
+<rect x="72.69" y="321.07" width="28.00" height="44.21" fill="#3566a8"/>
+<line x1="86.69" y1="365.28" x2="86.69" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<line x1="82.69" y1="365.28" x2="90.69" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<line x1="82.69" y1="365.28" x2="90.69" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<text x="72.69" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">swe_-k0</text>
+<rect x="118.08" y="298.97" width="28.00" height="22.10" fill="#3566a8"/>
+<line x1="132.08" y1="365.28" x2="132.08" y2="232.66" stroke="#20242a" stroke-width="1.00"/>
+<line x1="128.08" y1="365.28" x2="136.08" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<line x1="128.08" y1="232.66" x2="136.08" y2="232.66" stroke="#20242a" stroke-width="1.00"/>
+<text x="118.08" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">swe_-k1</text>
+<rect x="163.46" y="321.07" width="28.00" height="44.21" fill="#3566a8"/>
+<line x1="177.46" y1="365.28" x2="177.46" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<line x1="173.46" y1="365.28" x2="181.46" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<line x1="173.46" y1="365.28" x2="181.46" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<text x="163.46" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">swe_-k2</text>
+<rect x="208.85" y="321.07" width="28.00" height="44.21" fill="#3566a8"/>
+<line x1="222.85" y1="365.28" x2="222.85" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<line x1="218.85" y1="365.28" x2="226.85" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<line x1="218.85" y1="365.28" x2="226.85" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<text x="208.85" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">swe_-k3</text>
+<rect x="254.23" y="321.07" width="28.00" height="44.21" fill="#3566a8"/>
+<line x1="268.23" y1="365.28" x2="268.23" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<line x1="264.23" y1="365.28" x2="272.23" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<line x1="264.23" y1="365.28" x2="272.23" y2="365.28" stroke="#20242a" stroke-width="1.00"/>
+<text x="254.23" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">swe_-k4</text>
+<rect x="299.62" y="166.35" width="28.00" height="154.72" fill="#3566a8"/>
+<line x1="313.62" y1="232.66" x2="313.62" y2="100.04" stroke="#20242a" stroke-width="1.00"/>
+<line x1="309.62" y1="232.66" x2="317.62" y2="232.66" stroke="#20242a" stroke-width="1.00"/>
+<line x1="309.62" y1="100.04" x2="317.62" y2="100.04" stroke="#20242a" stroke-width="1.00"/>
+<text x="299.62" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">swe_-k5</text>
+<rect x="345.00" y="226.34" width="28.00" height="94.73" fill="#3566a8"/>
+<line x1="359.00" y1="358.96" x2="359.00" y2="93.72" stroke="#20242a" stroke-width="1.00"/>
+<line x1="355.00" y1="358.96" x2="363.00" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="355.00" y1="93.72" x2="363.00" y2="93.72" stroke="#20242a" stroke-width="1.00"/>
+<text x="345.00" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">math-k0</text>
+<rect x="390.38" y="321.07" width="28.00" height="37.89" fill="#3566a8"/>
+<line x1="404.38" y1="358.96" x2="404.38" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="400.38" y1="358.96" x2="408.38" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="400.38" y1="358.96" x2="408.38" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<text x="390.38" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">math-k1</text>
+<rect x="435.77" y="321.07" width="28.00" height="37.89" fill="#3566a8"/>
+<line x1="449.77" y1="358.96" x2="449.77" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="445.77" y1="358.96" x2="453.77" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="445.77" y1="358.96" x2="453.77" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<text x="435.77" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">math-k2</text>
+<rect x="481.15" y="321.07" width="28.00" height="37.89" fill="#3566a8"/>
+<line x1="495.15" y1="358.96" x2="495.15" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="491.15" y1="358.96" x2="499.15" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="491.15" y1="358.96" x2="499.15" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<text x="481.15" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">math-k3</text>
+<rect x="526.54" y="321.07" width="28.00" height="37.89" fill="#3566a8"/>
+<line x1="540.54" y1="358.96" x2="540.54" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="536.54" y1="358.96" x2="544.54" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="536.54" y1="358.96" x2="544.54" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<text x="526.54" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">math-k4</text>
+<rect x="571.92" y="226.34" width="28.00" height="94.73" fill="#3566a8"/>
+<line x1="585.92" y1="358.96" x2="585.92" y2="93.72" stroke="#20242a" stroke-width="1.00"/>
+<line x1="581.92" y1="358.96" x2="589.92" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="581.92" y1="93.72" x2="589.92" y2="93.72" stroke="#20242a" stroke-width="1.00"/>
+<text x="571.92" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">math-k5</text>
+<rect x="617.31" y="321.07" width="28.00" height="37.89" fill="#3566a8"/>
+<line x1="631.31" y1="358.96" x2="631.31" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="627.31" y1="358.96" x2="635.31" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<line x1="627.31" y1="358.96" x2="635.31" y2="358.96" stroke="#20242a" stroke-width="1.00"/>
+<text x="617.31" y="404.00" font-family="Helvetica,Arial,sans-serif" font-size="7" fill="#20242a" text-anchor="start">math-k6</text>
+<text x="64.00" y="429.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7a7f87" text-anchor="start">Not evaluated: parametric_b</text>
+<text x="610.00" y="84.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7a7f87" text-anchor="start">0 = chance</text>
+</svg>

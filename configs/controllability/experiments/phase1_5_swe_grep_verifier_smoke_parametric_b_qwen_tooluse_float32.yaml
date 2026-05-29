@@ -1,0 +1,67 @@
+run_id: phase1_5_swe_grep_verifier_smoke_parametric_b_qwen_tooluse_float32
+env_id: prime/swe-grep
+model_id: Qwen/Qwen3-8B
+formulation: parametric_b
+
+stage1_locked_config: configs/controllability/preregistration/headline_locked_stage1_v2_prime_swe_grep.yaml
+stage2_baselines: configs/controllability/preregistration/baselines_locked_stage1_v2_prime_swe_grep_parametric_b.yaml
+stage3_aggregated_path: runs/stage3_v2_Qwen_Qwen3_8B_prime_swe_grep/aggregated_per_coordinate.json
+trajectories_path: runs/rollouts/prime_swe_grep_Qwen_Qwen3_8B/trajectories.jsonl
+steering_contract_reference: runs/steering_contract_validation_math500_parametric_b_float32/summary.json
+precision_blocker_reference: runs/steering_contract_validation_math500_parametric_b/summary.json
+inference_rationale: Qwen3 no-thinking tool-call settings from official docs, full prompt context matched to successful prime-rl base rollouts.
+
+patch_layer: 20
+readout_layer: 22
+selected_k: 6
+coordinates: [0, 1, 2, 3, 4, 5]
+controllers: [one_shot, open_loop, closed_loop]
+signs: ["+", "-"]
+required_coordinates: [0, 1, 2, 3, 4, 5]
+required_controllers: [one_shot, open_loop, closed_loop]
+required_signs: ["+", "-"]
+require_complete_steering_grid: true
+run_completeness_gate_self_test: true
+seeds: [0, 1, 2]
+n_prompts: 20
+
+encoder_name: sentence_e5_structured_v1
+encoder_config:
+  model_id: intfloat/e5-large-v2
+  max_length: 512
+  normalize: true
+encoder_variance_threshold: 1.0e-8
+encoder_active_fraction_floor: 0.5
+
+eta_multiplier: 1.0
+linearization_probe_norm: 1.0e-3
+linearization_diagnostic_scope: turn
+max_completion_tokens: 512
+require_tool_calls: true
+agent_length_token_floor: 128
+closed_loop_chunk_tokens: 32
+closed_loop_budget_mode: l2_per_turn
+
+# Official Qwen3 no-thinking/tool-call inference settings, plus full-context HF decoding.
+enable_thinking: false
+temperature: 0.7
+top_p: 0.8
+top_k: 20
+min_p: 0.0
+repetition_penalty: 1.05
+max_prefix_tokens: 8192
+
+dtype: float32
+device_map: auto
+chart_dim: 32
+residual_metric: cov_h
+basis_sample_trajectories: 32
+basis_jacobian_states: 12
+basis_train_steps: 200
+basis_batch_size: 2
+positions_per_sequence: 8
+hidden_dim: 64
+learning_rate: 0.001
+ortho_weight: 10.0
+metric_ridge: 0.0001
+seed: 42

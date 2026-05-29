@@ -41,6 +41,29 @@ At each check-in:
 
 Always append — never overwrite previous entries.
 
+### Controllability Phase 2 on GCP
+
+For `scripts/run_phase2_gcp.sh`, monitor the master log and shard output under `runs/gcp_logs/`.
+
+```bash
+tail -n 80 runs/gcp_logs/run_phase2_gcp4x2_master.out
+tail -n 120 runs/gcp_logs/run_phase2_gcp4x2_master.err
+for d in runs/phase2_*_gcp4x2_shard*; do
+  [ -d "$d" ] && printf "%s " "$(basename "$d")" && wc -l "$d/trajectories.jsonl" "$d/failed_jobs.jsonl" 2>/dev/null | tail -1
+done
+nvidia-smi --query-gpu=index,memory.used,utilization.gpu --format=csv,noheader
+```
+
+For Qwen3-8B float32 steering on A100-40GB, use two GPUs per worker:
+
+```bash
+GPU_GROUPS='0,1;2,3;4,5;6,7' RUN_LABEL=gcp4x2 \
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+bash scripts/run_phase2_gcp.sh
+```
+
+One GPU per worker is not enough for this path: the model loads but rollout generation OOMs near 39.5 GiB used. H100-80GB can run one worker per GPU.
+
 ### Restarting a run
 
 **IMPORTANT**: Never restart a run unless you were explicitly instructed by the researcher. If you were given permission, make sure to ask the researcher for the exact command to resume a run and under what conditions a restart is necessary.
@@ -220,6 +243,39 @@ head -1 {output_dir}/{run_dir}/rollouts/step_42/train_rollouts.jsonl | python -m
 jq '.reward' {output_dir}/{run_dir}/rollouts/step_42/train_rollouts.jsonl
 ```
 
+### Controllability encoder checks
+
+For controllability verifier-loop smokes, do not treat a low sentence-encoder active fraction as a construction failure until the encoder input has been audited. On long tool-use prompts, chronological trajectory text can be prompt-prefix dominated: E5-style encoders with `max_length=512` may truncate before assistant/tool behavior begins. A known failure signature is:
+
+- same-prompt/different-coordinate sentence-embedding cosine near `1.0`;
+- zero active sentence dimensions across thresholds down to `1e-12`;
+- coordinate discriminator on sentence embeddings at chance;
+- behavior starts after the encoder window in a tokenizer audit.
+
+When this appears, fix the encoder input by embedding behavior-bearing text only (assistant messages, tool calls, tool outputs, final answer, compact metadata), or by chunking/pooling the trajectory so tool-use behavior cannot be truncated away.
+
+### Controllability steering contract
+
+Before running scaled verifier-loop steering experiments, run the steering contract on
+the target model/env/formulation. The contract must pass zero-edit greedy decode
+fidelity, finite-difference linearity, edit-norm sweep, and closed-loop cumulative
+budget semantics.
+
+```bash
+uv run python -m controllability.reports.steering_contract_validation \
+  --config configs/controllability/experiments/steering_contract_math500_parametric_b_float32.yaml
+```
+
+Do not scale Stage 4/Phase 2 from a bfloat16 steering backend unless its own contract
+passes. In prior validation, bfloat16 preserved zero-edit decode fidelity but broke
+finite-difference linearization, while float32 passed the same contract.
+
+For Qwen3 tool-use verifier-loop runs, avoid greedy/truncated HF decoding. Use
+Qwen3 no-thinking tool-call settings (`enable_thinking=false`, `temperature=0.7`,
+`top_p=0.8`, `top_k=20`, `repetition_penalty=1.05`) and keep enough prompt context
+for the full tool-use system prompt plus tool results. A 512-token prefix cap
+truncated swe-grep prompts that were over 1k tokens in successful base rollouts.
+
 ### Errors and warnings
 
 As part of every check-in, grep all logs for `WARNING` and `ERROR` level messages. Pay special attention to env server and env worker logs — these are the most common source of issues since they run user-provided code.
@@ -251,4 +307,3 @@ PRIME-RL::Launcher
 ```
 
 For multi-node runs, trainer and inference processes are distributed across separate nodes. Use `srun` or `ssh` to inspect processes on other nodes directly.
-

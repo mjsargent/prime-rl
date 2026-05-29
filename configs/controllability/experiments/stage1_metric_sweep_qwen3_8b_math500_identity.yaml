@@ -1,0 +1,16 @@
+env_id: primeintellect/math500
+model_id: Qwen/Qwen3-8B
+trajectory_path: runs/rollouts/primeintellect_math500_Qwen_Qwen3_8B/trajectories.jsonl
+sample_trajectories: 64
+jacobian_states: 4
+positions_per_sequence: 8
+max_length: 512
+chart_dim: 16
+batch_size: 4
+dtype: bfloat16
+device: cuda:0
+residual_metric: identity
+seed: 42
+layer_pairs:
+  - [4, 6]
+  - [12, 14]

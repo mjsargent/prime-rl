@@ -1,0 +1,13 @@
+{
+  "envs": [
+    "swe",
+    "math500"
+  ],
+  "figure_type": "stage3_eta",
+  "name": "stage3_linearization_budget",
+  "source_run_ids": [
+    "stage3_v2_Qwen_Qwen3_8B_prime_swe_grep",
+    "stage3_v2_Qwen_Qwen3_8B_primeintellect_math500"
+  ],
+  "title": "Linearization Budget by Coordinate"
+}

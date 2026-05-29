@@ -1,0 +1,12 @@
+{
+  "envs": [
+    "swe",
+    "math500"
+  ],
+  "figure_type": "stage5_quality_conditioning_sensitivity",
+  "name": "stage5_quality_conditioning_sensitivity",
+  "source_run_ids": [
+    "stage5_v2_Qwen_Qwen3_8B_tier_a_stage5"
+  ],
+  "title": "Quality-Conditioning Sensitivity"
+}

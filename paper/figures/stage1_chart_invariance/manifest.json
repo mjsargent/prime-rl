@@ -1,0 +1,13 @@
+{
+  "envs": [
+    "swe",
+    "math500"
+  ],
+  "figure_type": "chart_invariance",
+  "name": "stage1_chart_invariance",
+  "source_run_ids": [
+    "stage1_v2_original_graph_Qwen_Qwen3_8B_prime_swe_grep",
+    "stage1_v2_original_graph_Qwen_Qwen3_8B_primeintellect_math500"
+  ],
+  "title": "Stage 1 Chart Invariance"
+}

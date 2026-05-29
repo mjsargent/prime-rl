@@ -1,0 +1,24 @@
+run_id: stage6_phase2_swe_grep_parametric_b_behavioral_v3
+model_id: Qwen/Qwen3-8B
+primary_formulation: parametric_b
+stage5_summary: runs/stage5_phase2_swe_grep_parametric_b_behavioral_v3/summary.json
+stage5_per_coordinate_path: runs/stage5_phase2_swe_grep_parametric_b_behavioral_v3/per_coordinate_identifiability.parquet
+environments:
+  swe_grep:
+    env_id: prime/swe-grep
+    stage3_summary: runs/stage3_v2_Qwen_Qwen3_8B_prime_swe_grep/summary.json
+    stage3_aggregated_path: runs/stage3_v2_Qwen_Qwen3_8B_prime_swe_grep/aggregated_per_coordinate.json
+frequency_bands:
+  - name: low
+    min_coordinate: 0
+    max_coordinate: 1
+  - name: mid
+    min_coordinate: 2
+    max_coordinate: 3
+  - name: high
+    min_coordinate: 4
+    max_coordinate:
+limitations:
+  - This Stage 6 run uses the full verifier-scored Phase 2 swe-grep parametric_b trajectory set.
+  - Per-coordinate identifiability is available only for the primary parametric_b formulation in this Phase 2 artifact.
+  - Correlations are based on six coordinates from one environment, so positive associations are descriptive until replicated across Phase 2 math500 or comparator formulations.

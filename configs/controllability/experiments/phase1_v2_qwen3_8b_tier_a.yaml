@@ -1,0 +1,14 @@
+stage5_config: configs/controllability/experiments/stage5_v2_qwen3_8b_tier_a_stage5.yaml
+stage5_summary: runs/stage5_v2_Qwen_Qwen3_8B_tier_a_stage5/summary.json
+
+controllers:
+  - one_shot
+  - open_loop
+  - closed_loop
+
+stage3_aggregated:
+  swe_grep: runs/stage3_v2_Qwen_Qwen3_8B_prime_swe_grep/aggregated_per_coordinate.json
+  math500: runs/stage3_v2_Qwen_Qwen3_8B_primeintellect_math500/aggregated_per_coordinate.json
+
+encoder_variance_threshold: 1.0e-8
+encoder_broken_active_fraction_floor: 0.25

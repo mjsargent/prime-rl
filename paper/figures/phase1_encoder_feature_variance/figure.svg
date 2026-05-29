@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480">
+<rect width="100%" height="100%" fill="white"/>
+<text x="36.00" y="34.00" font-family="Helvetica,Arial,sans-serif" font-size="18" fill="#20242a" text-anchor="start">Phase 1 Encoder Feature Variance</text>
+<line x1="64.00" y1="387.00" x2="654.00" y2="387.00" stroke="#20242a" stroke-width="1.00"/>
+<line x1="64.00" y1="72.00" x2="64.00" y2="387.00" stroke="#20242a" stroke-width="1.00"/>
+<text x="16.00" y="229.50" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#20242a" text-anchor="start">active_feature_fraction</text>
+<rect x="68.00" y="113.09" width="53.10" height="273.91" fill="#7a7f87"/>
+<text x="68.00" y="405.00" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">swe_-B</text>
+<rect x="141.75" y="113.09" width="53.10" height="273.91" fill="#b94d48"/>
+<text x="141.75" y="405.00" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">swe_-A</text>
+<rect x="215.50" y="113.09" width="53.10" height="273.91" fill="#7257a8"/>
+<text x="215.50" y="405.00" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">swe_-C</text>
+<rect x="289.25" y="113.09" width="53.10" height="273.91" fill="#7a7f87"/>
+<text x="289.25" y="405.00" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">swe_-graph</text>
+<rect x="363.00" y="204.39" width="53.10" height="182.61" fill="#7a7f87"/>
+<text x="363.00" y="405.00" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">math-B</text>
+<rect x="436.75" y="204.39" width="53.10" height="182.61" fill="#b94d48"/>
+<text x="436.75" y="405.00" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">math-A</text>
+<rect x="510.50" y="204.39" width="53.10" height="182.61" fill="#7257a8"/>
+<text x="510.50" y="405.00" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">math-C</text>
+<rect x="584.25" y="204.39" width="53.10" height="182.61" fill="#7a7f87"/>
+<text x="584.25" y="405.00" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">math-graph</text>
+</svg>

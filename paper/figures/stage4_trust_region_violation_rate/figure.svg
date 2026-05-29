@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480">
+<rect width="100%" height="100%" fill="white"/>
+<text x="36.00" y="34.00" font-family="Helvetica,Arial,sans-serif" font-size="18" fill="#20242a" text-anchor="start">Trust-Region Violation Rate by Edit Norm</text>
+<line x1="72.00" y1="400.00" x2="632.00" y2="400.00" stroke="#20242a" stroke-width="1.00"/>
+<line x1="72.00" y1="70.00" x2="72.00" y2="400.00" stroke="#20242a" stroke-width="1.00"/>
+<text x="312.00" y="438.00" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#20242a" text-anchor="start">edit_norm</text>
+<text x="16.00" y="235.00" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#20242a" text-anchor="start">violation_rate</text>
+<polyline points="72.00,400.00 96.52,400.00 193.17,400.00 242.22,400.00 314.34,70.00 387.91,70.00" fill="none" stroke="#3566a8" stroke-width="2.00"/>
+<circle cx="72.00" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="96.52" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="193.17" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="242.22" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="314.34" cy="70.00" r="3.00" fill="#3566a8"/>
+<circle cx="387.91" cy="70.00" r="3.00" fill="#3566a8"/>
+<text x="650.00" y="80.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#3566a8" text-anchor="start">math500</text>
+<polyline points="164.00,400.00 177.89,400.00 377.18,400.00 404.94,400.00 590.35,70.00 632.00,70.00" fill="none" stroke="#2d8c61" stroke-width="2.00"/>
+<circle cx="164.00" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="177.89" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="377.18" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="404.94" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="590.35" cy="70.00" r="3.00" fill="#2d8c61"/>
+<circle cx="632.00" cy="70.00" r="3.00" fill="#2d8c61"/>
+<text x="650.00" y="98.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#2d8c61" text-anchor="start">swe</text>
+</svg>

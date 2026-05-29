@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480">
+<rect width="100%" height="100%" fill="white"/>
+<text x="36.00" y="34.00" font-family="Helvetica,Arial,sans-serif" font-size="18" fill="#20242a" text-anchor="start">Layer-Pair Effective Rank</text>
+<rect x="80.00" y="72.00" width="36.00" height="26.00" fill="#3d6cab" stroke="#ffffff" stroke-width="1"/>
+<rect x="80.00" y="101.09" width="36.00" height="26.00" fill="#5b82b7" stroke="#ffffff" stroke-width="1"/>
+<rect x="80.00" y="362.91" width="36.00" height="26.00" fill="#c9d5e5" stroke="#ffffff" stroke-width="1"/>
+<rect x="192.00" y="130.18" width="36.00" height="26.00" fill="#547db5" stroke="#ffffff" stroke-width="1"/>
+<rect x="192.00" y="159.27" width="36.00" height="26.00" fill="#698dbd" stroke="#ffffff" stroke-width="1"/>
+<rect x="192.00" y="362.91" width="36.00" height="26.00" fill="#cad6e6" stroke="#ffffff" stroke-width="1"/>
+<rect x="304.00" y="188.36" width="36.00" height="26.00" fill="#517bb3" stroke="#ffffff" stroke-width="1"/>
+<rect x="304.00" y="217.45" width="36.00" height="26.00" fill="#5d84b8" stroke="#ffffff" stroke-width="1"/>
+<rect x="304.00" y="362.91" width="36.00" height="26.00" fill="#c9d5e5" stroke="#ffffff" stroke-width="1"/>
+<rect x="416.00" y="246.55" width="36.00" height="26.00" fill="#4270ad" stroke="#ffffff" stroke-width="1"/>
+<rect x="416.00" y="275.64" width="36.00" height="26.00" fill="#5e85b9" stroke="#ffffff" stroke-width="1"/>
+<rect x="416.00" y="362.91" width="36.00" height="26.00" fill="#bfcde1" stroke="#ffffff" stroke-width="1"/>
+<rect x="528.00" y="304.73" width="36.00" height="26.00" fill="#3566a8" stroke="#ffffff" stroke-width="1"/>
+<rect x="528.00" y="333.82" width="36.00" height="26.00" fill="#6489bb" stroke="#ffffff" stroke-width="1"/>
+<rect x="528.00" y="362.91" width="36.00" height="26.00" fill="#b2c4dc" stroke="#ffffff" stroke-width="1"/>
+<rect x="80.00" y="72.00" width="36.00" height="26.00" fill="#84a2c9" stroke="#ffffff" stroke-width="1"/>
+<rect x="80.00" y="101.09" width="36.00" height="26.00" fill="#9bb2d2" stroke="#ffffff" stroke-width="1"/>
+<rect x="80.00" y="362.91" width="36.00" height="26.00" fill="#cad6e6" stroke="#ffffff" stroke-width="1"/>
+<rect x="192.00" y="130.18" width="36.00" height="26.00" fill="#91abce" stroke="#ffffff" stroke-width="1"/>
+<rect x="192.00" y="159.27" width="36.00" height="26.00" fill="#a6bbd7" stroke="#ffffff" stroke-width="1"/>
+<rect x="192.00" y="362.91" width="36.00" height="26.00" fill="#cbd6e6" stroke="#ffffff" stroke-width="1"/>
+<rect x="304.00" y="188.36" width="36.00" height="26.00" fill="#85a2c9" stroke="#ffffff" stroke-width="1"/>
+<rect x="304.00" y="217.45" width="36.00" height="26.00" fill="#9cb4d3" stroke="#ffffff" stroke-width="1"/>
+<rect x="304.00" y="362.91" width="36.00" height="26.00" fill="#d0dae8" stroke="#ffffff" stroke-width="1"/>
+<rect x="416.00" y="246.55" width="36.00" height="26.00" fill="#edf0f4" stroke="#ffffff" stroke-width="1"/>
+<rect x="416.00" y="275.64" width="36.00" height="26.00" fill="#edf0f4" stroke="#ffffff" stroke-width="1"/>
+<rect x="416.00" y="362.91" width="36.00" height="26.00" fill="#edf0f4" stroke="#ffffff" stroke-width="1"/>
+<rect x="528.00" y="304.73" width="36.00" height="26.00" fill="#eceff4" stroke="#ffffff" stroke-width="1"/>
+<rect x="528.00" y="333.82" width="36.00" height="26.00" fill="#ecf0f4" stroke="#ffffff" stroke-width="1"/>
+<rect x="528.00" y="362.91" width="36.00" height="26.00" fill="#ebeff3" stroke="#ffffff" stroke-width="1"/>
+<text x="80.00" y="426.00" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#7a7f87" text-anchor="start">x: patch layer, y: readout layer, color: effective rank</text>
+</svg>

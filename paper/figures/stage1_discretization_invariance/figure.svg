@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480">
+<rect width="100%" height="100%" fill="white"/>
+<text x="36.00" y="34.00" font-family="Helvetica,Arial,sans-serif" font-size="18" fill="#20242a" text-anchor="start">Stage 1 Discretization Invariance</text>
+<text x="142.00" y="115.96" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="end">graph_laplacian</text>
+<text x="179.00" y="68.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="middle">graph_laplacian</text>
+<rect x="150.00" y="80.00" width="58.00" height="58.00" fill="#3566a8" stroke="#ffffff" stroke-width="1"/>
+<text x="167.00" y="113.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">1.00</text>
+<rect x="208.00" y="80.00" width="58.00" height="58.00" fill="#5a82b7" stroke="#ffffff" stroke-width="1"/>
+<text x="225.00" y="113.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.80</text>
+<rect x="266.00" y="80.00" width="58.00" height="58.00" fill="#6087ba" stroke="#ffffff" stroke-width="1"/>
+<text x="283.00" y="113.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.76</text>
+<rect x="324.00" y="80.00" width="58.00" height="58.00" fill="#517bb4" stroke="#ffffff" stroke-width="1"/>
+<text x="341.00" y="113.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.85</text>
+<text x="142.00" y="173.96" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="end">landmark_nystrom_256</text>
+<text x="237.00" y="68.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="middle">landmark_nystrom_256</text>
+<rect x="150.00" y="138.00" width="58.00" height="58.00" fill="#5a82b7" stroke="#ffffff" stroke-width="1"/>
+<text x="167.00" y="171.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.80</text>
+<rect x="208.00" y="138.00" width="58.00" height="58.00" fill="#3566a8" stroke="#ffffff" stroke-width="1"/>
+<text x="225.00" y="171.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">1.00</text>
+<rect x="266.00" y="138.00" width="58.00" height="58.00" fill="#507ab3" stroke="#ffffff" stroke-width="1"/>
+<text x="283.00" y="171.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.86</text>
+<rect x="324.00" y="138.00" width="58.00" height="58.00" fill="#547eb5" stroke="#ffffff" stroke-width="1"/>
+<text x="341.00" y="171.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.83</text>
+<text x="142.00" y="231.96" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="end">landmark_nystrom_64</text>
+<text x="295.00" y="68.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="middle">landmark_nystrom_64</text>
+<rect x="150.00" y="196.00" width="58.00" height="58.00" fill="#6087ba" stroke="#ffffff" stroke-width="1"/>
+<text x="167.00" y="229.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.76</text>
+<rect x="208.00" y="196.00" width="58.00" height="58.00" fill="#507ab3" stroke="#ffffff" stroke-width="1"/>
+<text x="225.00" y="229.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.86</text>
+<rect x="266.00" y="196.00" width="58.00" height="58.00" fill="#3566a8" stroke="#ffffff" stroke-width="1"/>
+<text x="283.00" y="229.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">1.00</text>
+<rect x="324.00" y="196.00" width="58.00" height="58.00" fill="#557eb5" stroke="#ffffff" stroke-width="1"/>
+<text x="341.00" y="229.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.83</text>
+<text x="142.00" y="289.96" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="end">parametric_neural</text>
+<text x="353.00" y="68.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#20242a" text-anchor="middle">parametric_neural</text>
+<rect x="150.00" y="254.00" width="58.00" height="58.00" fill="#517bb4" stroke="#ffffff" stroke-width="1"/>
+<text x="167.00" y="287.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.85</text>
+<rect x="208.00" y="254.00" width="58.00" height="58.00" fill="#547eb5" stroke="#ffffff" stroke-width="1"/>
+<text x="225.00" y="287.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.83</text>
+<rect x="266.00" y="254.00" width="58.00" height="58.00" fill="#557eb5" stroke="#ffffff" stroke-width="1"/>
+<text x="283.00" y="287.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">0.83</text>
+<rect x="324.00" y="254.00" width="58.00" height="58.00" fill="#3566a8" stroke="#ffffff" stroke-width="1"/>
+<text x="341.00" y="287.64" font-family="Helvetica,Arial,sans-serif" font-size="8" fill="#20242a" text-anchor="start">1.00</text>
+<text x="150.00" y="350.00" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#7a7f87" text-anchor="start">Cell value: subspace overlap / agreement</text>
+</svg>

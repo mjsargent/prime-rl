@@ -1,0 +1,13 @@
+{
+  "envs": [
+    "swe",
+    "math500"
+  ],
+  "figure_type": "stage3_reachability",
+  "name": "stage3_reachability_distribution",
+  "source_run_ids": [
+    "stage3_v2_Qwen_Qwen3_8B_prime_swe_grep",
+    "stage3_v2_Qwen_Qwen3_8B_primeintellect_math500"
+  ],
+  "title": "Reachability Distribution by Coordinate"
+}

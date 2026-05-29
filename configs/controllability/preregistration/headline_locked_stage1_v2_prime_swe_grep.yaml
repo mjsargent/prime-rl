@@ -1,0 +1,17 @@
+chart_dim: 32
+comparators:
+  average_controllability_a: runs/stage1_v2_graph_free_spectra_Qwen_Qwen3_8B_prime_swe_grep/summary.json
+  koopman_dmd_c: runs/stage1_v2_graph_free_spectra_Qwen_Qwen3_8B_prime_swe_grep/summary.json
+  original_graph: runs/stage1_v2_original_graph_Qwen_Qwen3_8B_prime_swe_grep/summary.json
+env_id: prime/swe-grep
+gate: pass
+gate_reason: all Stage 1 v2 graph-free gates passed
+model_id: Qwen/Qwen3-8B
+primary_method: parametric_b
+primary_method_summary: runs/stage1_v2_parametric_b_Qwen_Qwen3_8B_prime_swe_grep/summary.json
+residual_metric: cov_h
+selected_k: 6
+selected_patch_layer: 20
+selected_readout_layer: 22
+stage1_v2_run_id: stage1_v2_graph_free_Qwen_Qwen3_8B_prime_swe_grep
+timestamp_utc: '2026-05-07T08:04:34Z'

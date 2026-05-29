@@ -1,0 +1,12 @@
+{
+  "envs": [
+    "swe",
+    "math500"
+  ],
+  "figure_type": "stage5_per_coordinate_identifiability",
+  "name": "stage5_per_coordinate_identifiability",
+  "source_run_ids": [
+    "stage5_v2_Qwen_Qwen3_8B_tier_a_stage5"
+  ],
+  "title": "Per-Coordinate Identifiability"
+}

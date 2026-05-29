@@ -1,0 +1,53 @@
+version: stage1_v2_graph_free_2026_05_07
+status: preregistered_after_v1_failure_and_method_diagnostics
+scope:
+  environments:
+    - prime/swe-grep
+    - primeintellect/math500
+  model_id: Qwen/Qwen3-8B
+  note: >
+    Stage 1 v1 with the median-kernel graph estimator remains failed. This
+    v2 branch tests graph-free estimators after diagnostics showed that the
+    graph discretization was the likely bottleneck.
+primary_method: parametric_b
+methods:
+  original_graph:
+    role: baseline_negative_control
+    gate_effect: reported_not_required
+    estimator: median_kernel_graph_laplacian_from_stage1_v1
+  average_controllability_a:
+    role: linear_graph_free_comparator
+    estimator: generalized_eigenproblem_E_M_tau_v_equals_lambda_Cov_z_v
+    residual_metrics: [identity, cov_h, cov_delta_h]
+  parametric_b:
+    role: primary
+    estimator: parametric_neural_eigenfunctions_of_anisotropic_rayleigh_energy
+    chart_dim: 32
+    eigenfunction_count: 8
+    hidden_dim: 64
+    train_steps: 500
+    residual_metric: cov_h
+    selection_rule: >
+      Choose the pair with highest held-out natural_k_by_energy_gap, then
+      highest inverse-energy effective rank, then lowest held-out mean
+      Rayleigh energy.
+  koopman_dmd_c:
+    role: dynamics_graph_free_comparator
+    estimator: linear_dmd_patch_layer_to_readout_layer_pca_features
+    feature_dims: [16, 32, 64, 128]
+gates:
+  primary_b_min_k: 4
+  primary_b_min_inverse_energy_effective_rank: 4.0
+  primary_b_max_output_covariance_abs_offdiag: 3.0
+  comparator_a_min_generalized_effective_rank: 4.0
+  comparator_c_min_test_r2: 0.8
+  original_graph_required_to_pass: false
+downstream_policy:
+  proceed_to_stage2_if: Stage 1 v2 gate passes for an environment.
+  stage2_runs: one shared Stage 2 implementation, separate run per formulation.
+  primary_for_stage2: parametric_b
+  comparators_for_stage2:
+    - average_controllability_a
+    - koopman_dmd_c
+    - original_graph
+  identifiability_metric: accuracy_minus_1_over_K

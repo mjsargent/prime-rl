@@ -182,6 +182,8 @@ def _capture_layer_states(
 def _metric_basis(layer_states: np.ndarray, positions_per_sequence: int, metric: str) -> np.ndarray | None:
     if metric == "identity":
         return None
+    if metric == "cov_h":
+        return layer_states.astype(np.float32) - layer_states.mean(axis=0, keepdims=True)
     if metric != "cov_delta_h":
         raise ValueError(f"Unsupported residual metric {metric!r}")
     deltas = []

@@ -1,0 +1,5 @@
+env_id: prime/swe-grep
+encoder: fixed_feature_v1
+feature_dim: 16
+quality_source: reward
+coherence_rule: messages_present

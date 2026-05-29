@@ -1,0 +1,21 @@
+run_id: stage1_v2_graph_free_spectra_Qwen_Qwen3_8B_prime_swe_grep
+env_id: prime/swe-grep
+model_id: Qwen/Qwen3-8B
+trajectory_path: runs/rollouts/prime_swe_grep_Qwen_Qwen3_8B/trajectories.jsonl
+sample_trajectories: 128
+jacobian_states: 8
+positions_per_sequence: 8
+max_length: 512
+chart_dim: 32
+dmd_feature_dims: [16, 32, 64, 128]
+dmd_test_fraction: 0.25
+batch_size: 4
+dtype: bfloat16
+device: cuda:0
+residual_metrics: [identity, cov_h, cov_delta_h]
+ridge: 0.0001
+seed: 42
+layer_pairs:
+  - [20, 22]
+  - [12, 14]
+  - [4, 6]

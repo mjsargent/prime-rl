@@ -1,0 +1,32 @@
+run_id: stage5_v2_Qwen_Qwen3_8B_tier_a_stage5
+model_id: Qwen/Qwen3-8B
+controller: closed_loop
+sign: "+"
+seed: 42
+test_fraction: 0.25
+n_bootstrap: 500
+logistic_steps: 400
+coherence_floor: 1.0
+quality_floors:
+  - 0.0
+  - 0.25
+  - 0.5
+  - 0.75
+  - 1.0
+environments:
+  swe_grep:
+    env_id: prime/swe-grep
+    stage2_parametric_b: runs/stage2_v2_Qwen_Qwen3_8B_prime_swe_grep_parametric_b
+    stage4_runs:
+      parametric_b: stage4_v2_Qwen_Qwen3_8B_prime_swe_grep_parametric_b_stage5
+      average_controllability_a: stage4_v2_Qwen_Qwen3_8B_prime_swe_grep_average_controllability_a_stage5
+      koopman_dmd_c: stage4_v2_Qwen_Qwen3_8B_prime_swe_grep_koopman_dmd_c_stage5
+      original_graph: stage4_v2_Qwen_Qwen3_8B_prime_swe_grep_original_graph_stage5
+  math500:
+    env_id: primeintellect/math500
+    stage2_parametric_b: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_parametric_b
+    stage4_runs:
+      parametric_b: stage4_v2_Qwen_Qwen3_8B_primeintellect_math500_parametric_b_stage5
+      average_controllability_a: stage4_v2_Qwen_Qwen3_8B_primeintellect_math500_average_controllability_a_stage5
+      koopman_dmd_c: stage4_v2_Qwen_Qwen3_8B_primeintellect_math500_koopman_dmd_c_stage5
+      original_graph: stage4_v2_Qwen_Qwen3_8B_primeintellect_math500_original_graph_stage5

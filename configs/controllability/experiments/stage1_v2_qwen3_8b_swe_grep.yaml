@@ -1,0 +1,9 @@
+run_id: stage1_v2_graph_free_Qwen_Qwen3_8B_prime_swe_grep
+env_id: prime/swe-grep
+model_id: Qwen/Qwen3-8B
+preregistration: configs/controllability/preregistration/stage1_v2_graph_free.yaml
+locked_output: configs/controllability/preregistration/headline_locked_stage1_v2_prime_swe_grep.yaml
+method_summaries:
+  original_graph: runs/stage1_v2_original_graph_Qwen_Qwen3_8B_prime_swe_grep/summary.json
+  graph_free_a_c: runs/stage1_v2_graph_free_spectra_Qwen_Qwen3_8B_prime_swe_grep/summary.json
+  parametric_b: runs/stage1_v2_parametric_b_Qwen_Qwen3_8B_prime_swe_grep/summary.json

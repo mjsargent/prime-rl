@@ -1,0 +1,50 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 720 480] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 1268 >>
+stream
+BT /F1 18 Tf 0.1255 0.1412 0.1647 rg 36.00 446.00 Td (Null-Intervention Encoder Shift) Tj ET
+1.00 w 0.1255 0.1412 0.1647 RG 64.00 93.00 m 654.00 93.00 l S
+1.00 w 0.1255 0.1412 0.1647 RG 64.00 408.00 m 64.00 93.00 l S
+BT /F1 11 Tf 0.1255 0.1412 0.1647 rg 16.00 250.50 Td (null_wasserstein) Tj ET
+0.4784 0.4980 0.5294 rg 68.00 93.00 53.10 0.00 re f
+BT /F1 8 Tf 0.1255 0.1412 0.1647 rg 68.00 75.00 Td (swe-B) Tj ET
+0.4784 0.4980 0.5294 rg 141.75 93.00 53.10 0.00 re f
+BT /F1 8 Tf 0.1255 0.1412 0.1647 rg 141.75 75.00 Td (swe-A) Tj ET
+0.7255 0.3020 0.2824 rg 215.50 93.00 53.10 0.00 re f
+BT /F1 8 Tf 0.1255 0.1412 0.1647 rg 215.50 75.00 Td (swe-C) Tj ET
+0.4784 0.4980 0.5294 rg 289.25 93.00 53.10 0.00 re f
+BT /F1 8 Tf 0.1255 0.1412 0.1647 rg 289.25 75.00 Td (swe-graph) Tj ET
+0.4784 0.4980 0.5294 rg 363.00 93.00 53.10 0.00 re f
+BT /F1 8 Tf 0.1255 0.1412 0.1647 rg 363.00 75.00 Td (math500-B) Tj ET
+0.4784 0.4980 0.5294 rg 436.75 93.00 53.10 0.00 re f
+BT /F1 8 Tf 0.1255 0.1412 0.1647 rg 436.75 75.00 Td (math500-A) Tj ET
+0.7255 0.3020 0.2824 rg 510.50 93.00 53.10 0.00 re f
+BT /F1 8 Tf 0.1255 0.1412 0.1647 rg 510.50 75.00 Td (math500-C) Tj ET
+0.4784 0.4980 0.5294 rg 584.25 93.00 53.10 0.00 re f
+BT /F1 8 Tf 0.1255 0.1412 0.1647 rg 584.25 75.00 Td (math500-graph) Tj ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+1631
+%%EOF

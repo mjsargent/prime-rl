@@ -1,0 +1,36 @@
+env_id: primeintellect/math500
+model_id: Qwen/Qwen3-8B
+stage2_run_id: stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_koopman_dmd_c
+gate: pass
+gate_reason: all Stage 2 encoder sanity gates passed
+timestamp_utc: '2026-05-07T08:13:09Z'
+formulation:
+  formulation: koopman_dmd_c
+  formulation_role: comparator
+  selected_k: 8
+  selected_patch_layer: 12
+  selected_readout_layer: 14
+  source_summary: runs/stage1_v2_graph_free_spectra_Qwen_Qwen3_8B_primeintellect_math500/summary.json
+  source_method_comparison: runs/stage1_v2_graph_free_Qwen_Qwen3_8B_primeintellect_math500/method_comparison.json
+encoder:
+  encoder_config: configs/controllability/encoders/primeintellect_math500_encoder.yaml
+  feature_dim: 16
+  coverage: 1.0
+baselines:
+  null_intervention: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_koopman_dmd_c/null_intervention.json
+  random: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_koopman_dmd_c/random_baseline.json
+  temperature: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_koopman_dmd_c/temperature_baseline.json
+  pca: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_koopman_dmd_c/pca_baseline.json
+  sae: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_koopman_dmd_c/sae_baseline.json
+stage4_policy:
+  chance_corrected_identifiability: accuracy_minus_1_over_K
+  selected_k: 8
+  temperature_schedule:
+  - 0.2
+  - 0.3714
+  - 0.5429
+  - 0.7143
+  - 0.8857
+  - 1.0571
+  - 1.2286
+  - 1.4

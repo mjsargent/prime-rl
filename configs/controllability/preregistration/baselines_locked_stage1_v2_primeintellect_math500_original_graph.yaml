@@ -1,0 +1,38 @@
+env_id: primeintellect/math500
+model_id: Qwen/Qwen3-8B
+stage2_run_id: stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_original_graph
+gate: pass
+gate_reason: all Stage 2 encoder sanity gates passed
+timestamp_utc: '2026-05-07T08:13:11Z'
+formulation:
+  formulation: original_graph
+  formulation_role: baseline_negative_control
+  selected_k: 10
+  selected_patch_layer: 4
+  selected_readout_layer: 6
+  source_summary: runs/stage1_v2_original_graph_Qwen_Qwen3_8B_primeintellect_math500/summary.json
+  source_method_comparison: runs/stage1_v2_graph_free_Qwen_Qwen3_8B_primeintellect_math500/method_comparison.json
+encoder:
+  encoder_config: configs/controllability/encoders/primeintellect_math500_encoder.yaml
+  feature_dim: 16
+  coverage: 1.0
+baselines:
+  null_intervention: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_original_graph/null_intervention.json
+  random: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_original_graph/random_baseline.json
+  temperature: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_original_graph/temperature_baseline.json
+  pca: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_original_graph/pca_baseline.json
+  sae: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_original_graph/sae_baseline.json
+stage4_policy:
+  chance_corrected_identifiability: accuracy_minus_1_over_K
+  selected_k: 10
+  temperature_schedule:
+  - 0.2
+  - 0.3333
+  - 0.4667
+  - 0.6
+  - 0.7333
+  - 0.8667
+  - 1.0
+  - 1.1333
+  - 1.2667
+  - 1.4

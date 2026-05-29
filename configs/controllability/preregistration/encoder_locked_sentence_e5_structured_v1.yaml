@@ -1,0 +1,12 @@
+encoder_name: sentence_e5_structured_v1
+status: preregistered_for_phase1_5_smoke
+model_id: intfloat/e5-large-v2
+max_length: 512
+normalize: true
+auxiliary_features: fixed_feature_v1
+success_criterion:
+  phase1_6_active_feature_fraction_min: 0.5
+notes:
+  - Frozen sentence encoder over full trajectory text.
+  - Concatenates the fixed structured feature block as an auxiliary feature block.
+  - Must pass Phase 1.6 active-dimension audit before Phase 2 scale-up.

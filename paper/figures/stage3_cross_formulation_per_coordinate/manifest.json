@@ -1,0 +1,13 @@
+{
+  "envs": [
+    "swe",
+    "math500"
+  ],
+  "figure_type": "stage3_cross_formulation",
+  "name": "stage3_cross_formulation_per_coordinate",
+  "source_run_ids": [
+    "stage3_v2_Qwen_Qwen3_8B_prime_swe_grep",
+    "stage3_v2_Qwen_Qwen3_8B_primeintellect_math500"
+  ],
+  "title": "Cross-Formulation Per-Coordinate Gain"
+}

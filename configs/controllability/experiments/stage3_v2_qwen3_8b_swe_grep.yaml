@@ -1,0 +1,17 @@
+run_id: stage3_v2_Qwen_Qwen3_8B_prime_swe_grep
+env_id: prime/swe-grep
+model_id: Qwen/Qwen3-8B
+stage1_locked_config: configs/controllability/preregistration/headline_locked_stage1_v2_prime_swe_grep.yaml
+stage1_v2_summary: runs/stage1_v2_graph_free_Qwen_Qwen3_8B_prime_swe_grep/summary.json
+stage2_primary_summary: runs/stage2_v2_Qwen_Qwen3_8B_prime_swe_grep_parametric_b/summary.json
+method_comparison_path: runs/stage1_v2_graph_free_Qwen_Qwen3_8B_prime_swe_grep/method_comparison.json
+parametric_b_pair_path: runs/stage1_v2_parametric_b_Qwen_Qwen3_8B_prime_swe_grep/parametric_l20_r22.json
+average_controllability_path: runs/stage1_v2_graph_free_spectra_Qwen_Qwen3_8B_prime_swe_grep/average_controllability_spectrum.json
+koopman_dmd_path: runs/stage1_v2_graph_free_spectra_Qwen_Qwen3_8B_prime_swe_grep/koopman_dmd_spectrum.json
+original_graph_heatmap_path: runs/stage1_v2_original_graph_Qwen_Qwen3_8B_prime_swe_grep/layer_pair_heatmap.json
+original_graph_selected_patch_layer: 20
+original_graph_selected_readout_layer: 22
+comparator_k: 8
+original_graph_k: 10
+base_eta: 0.1
+eta_grid: [0.025, 0.05, 0.1, 0.2, 0.4]

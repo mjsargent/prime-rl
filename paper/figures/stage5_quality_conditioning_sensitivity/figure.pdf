@@ -1,0 +1,50 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 720 480] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 1393 >>
+stream
+BT /F1 18 Tf 0.1255 0.1412 0.1647 rg 36.00 446.00 Td (Quality-Conditioning Sensitivity) Tj ET
+1.00 w 0.1255 0.1412 0.1647 RG 72.00 80.00 m 632.00 80.00 l S
+1.00 w 0.1255 0.1412 0.1647 RG 72.00 410.00 m 72.00 80.00 l S
+BT /F1 11 Tf 0.1255 0.1412 0.1647 rg 312.00 42.00 Td (quality_floor) Tj ET
+BT /F1 11 Tf 0.1255 0.1412 0.1647 rg 16.00 245.00 Td (identifiability) Tj ET
+2.00 w 0.2078 0.4000 0.6588 RG 72.00 80.00 m 212.00 80.00 l 352.00 80.00 l 492.00 80.00 l 632.00 80.00 l S
+0.2078 0.4000 0.6588 rg 69.00 77.00 6.00 6.00 re f
+0.2078 0.4000 0.6588 rg 209.00 77.00 6.00 6.00 re f
+0.2078 0.4000 0.6588 rg 349.00 77.00 6.00 6.00 re f
+0.2078 0.4000 0.6588 rg 489.00 77.00 6.00 6.00 re f
+0.2078 0.4000 0.6588 rg 629.00 77.00 6.00 6.00 re f
+BT /F1 10 Tf 0.2078 0.4000 0.6588 rg 650.00 400.00 Td (math500) Tj ET
+2.00 w 0.1765 0.5490 0.3804 RG 72.00 80.00 m 212.00 80.00 l 352.00 80.00 l 492.00 80.00 l 632.00 80.00 l S
+0.1765 0.5490 0.3804 rg 69.00 77.00 6.00 6.00 re f
+0.1765 0.5490 0.3804 rg 209.00 77.00 6.00 6.00 re f
+0.1765 0.5490 0.3804 rg 349.00 77.00 6.00 6.00 re f
+0.1765 0.5490 0.3804 rg 489.00 77.00 6.00 6.00 re f
+0.1765 0.5490 0.3804 rg 629.00 77.00 6.00 6.00 re f
+BT /F1 10 Tf 0.1765 0.5490 0.3804 rg 650.00 382.00 Td (swe_grep) Tj ET
+BT /F1 10 Tf 0.4784 0.4980 0.5294 rg 72.00 50.00 Td (Floors above zero have insufficient data in reduced Stage 4 runs because quality is unset.) Tj ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+1756
+%%EOF

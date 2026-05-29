@@ -1,0 +1,25 @@
+env_id: prime/swe-grep
+model_id: Qwen/Qwen3-8B
+sample_sizes: [100000, 200000]
+anchor_size: 2000
+chart_dims: [32, 64, 128, 256]
+bandwidth_chart_dim: 64
+eig_count: 16
+natural_k_max: 15
+bandwidth_scales: [0.5, 1.0, 2.0, 4.0]
+knn_values: [15, 30, 60]
+max_pca_fit_states: 200000
+transition_pca_states: 50000
+tokens_per_trajectory: 48
+seed: 42
+rank_sweep_path: runs/stage1_layer_pair_sweep_Qwen_Qwen3_8B_prime_swe_grep_20260507T060653Z/layer_pair_rank_sweep.json
+layer_pairs:
+  - patch_layer: 20
+    readout_layer: 22
+    residuals: runs/activations_large/prime_swe_grep_Qwen_Qwen3_8B_t48/residuals_l22.npy
+  - patch_layer: 12
+    readout_layer: 14
+    residuals: runs/activations_large/prime_swe_grep_Qwen_Qwen3_8B_t48/residuals_l14.npy
+  - patch_layer: 4
+    readout_layer: 6
+    residuals: runs/activations_large/prime_swe_grep_Qwen_Qwen3_8B_t48/residuals_l6.npy

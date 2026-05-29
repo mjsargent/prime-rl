@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="480" viewBox="0 0 720 480">
+<rect width="100%" height="100%" fill="white"/>
+<text x="36.00" y="34.00" font-family="Helvetica,Arial,sans-serif" font-size="18" fill="#20242a" text-anchor="start">Phase 1 Quality-Conditioned Identifiability</text>
+<line x1="72.00" y1="400.00" x2="632.00" y2="400.00" stroke="#20242a" stroke-width="1.00"/>
+<line x1="72.00" y1="70.00" x2="72.00" y2="400.00" stroke="#20242a" stroke-width="1.00"/>
+<text x="312.00" y="438.00" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#20242a" text-anchor="start">quality_floor</text>
+<text x="16.00" y="235.00" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#20242a" text-anchor="start">identifiability</text>
+<polyline points="72.00,400.00 72.00,400.00 212.00,400.00 212.00,400.00 352.00,400.00 352.00,400.00 492.00,400.00 492.00,400.00 632.00,400.00 632.00,400.00" fill="none" stroke="#3566a8" stroke-width="2.00"/>
+<circle cx="72.00" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="72.00" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="212.00" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="212.00" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="352.00" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="352.00" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="492.00" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="492.00" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="632.00" cy="400.00" r="3.00" fill="#3566a8"/>
+<circle cx="632.00" cy="400.00" r="3.00" fill="#3566a8"/>
+<text x="650.00" y="80.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#3566a8" text-anchor="start">average_controllability_a</text>
+<polyline points="72.00,400.00 72.00,400.00 212.00,400.00 212.00,400.00 352.00,400.00 352.00,400.00 492.00,400.00 492.00,400.00 632.00,400.00 632.00,400.00" fill="none" stroke="#2d8c61" stroke-width="2.00"/>
+<circle cx="72.00" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="72.00" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="212.00" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="212.00" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="352.00" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="352.00" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="492.00" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="492.00" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="632.00" cy="400.00" r="3.00" fill="#2d8c61"/>
+<circle cx="632.00" cy="400.00" r="3.00" fill="#2d8c61"/>
+<text x="650.00" y="98.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#2d8c61" text-anchor="start">koopman_dmd_c</text>
+<polyline points="72.00,400.00 72.00,400.00 212.00,400.00 212.00,400.00 352.00,400.00 352.00,400.00 492.00,400.00 492.00,400.00 632.00,400.00 632.00,400.00" fill="none" stroke="#c8872d" stroke-width="2.00"/>
+<circle cx="72.00" cy="400.00" r="3.00" fill="#c8872d"/>
+<circle cx="72.00" cy="400.00" r="3.00" fill="#c8872d"/>
+<circle cx="212.00" cy="400.00" r="3.00" fill="#c8872d"/>
+<circle cx="212.00" cy="400.00" r="3.00" fill="#c8872d"/>
+<circle cx="352.00" cy="400.00" r="3.00" fill="#c8872d"/>
+<circle cx="352.00" cy="400.00" r="3.00" fill="#c8872d"/>
+<circle cx="492.00" cy="400.00" r="3.00" fill="#c8872d"/>
+<circle cx="492.00" cy="400.00" r="3.00" fill="#c8872d"/>
+<circle cx="632.00" cy="400.00" r="3.00" fill="#c8872d"/>
+<circle cx="632.00" cy="400.00" r="3.00" fill="#c8872d"/>
+<text x="650.00" y="116.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#c8872d" text-anchor="start">original_graph</text>
+<polyline points="72.00,400.00 72.00,400.00 212.00,400.00 212.00,400.00 352.00,400.00 352.00,400.00 492.00,400.00 492.00,400.00 632.00,400.00 632.00,400.00" fill="none" stroke="#7257a8" stroke-width="2.00"/>
+<circle cx="72.00" cy="400.00" r="3.00" fill="#7257a8"/>
+<circle cx="72.00" cy="400.00" r="3.00" fill="#7257a8"/>
+<circle cx="212.00" cy="400.00" r="3.00" fill="#7257a8"/>
+<circle cx="212.00" cy="400.00" r="3.00" fill="#7257a8"/>
+<circle cx="352.00" cy="400.00" r="3.00" fill="#7257a8"/>
+<circle cx="352.00" cy="400.00" r="3.00" fill="#7257a8"/>
+<circle cx="492.00" cy="400.00" r="3.00" fill="#7257a8"/>
+<circle cx="492.00" cy="400.00" r="3.00" fill="#7257a8"/>
+<circle cx="632.00" cy="400.00" r="3.00" fill="#7257a8"/>
+<circle cx="632.00" cy="400.00" r="3.00" fill="#7257a8"/>
+<text x="650.00" y="134.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7257a8" text-anchor="start">parametric_b</text>
+<text x="72.00" y="430.00" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#7a7f87" text-anchor="start">Quality is unset in reduced Stage 4 rows; strict Q &gt; q* filters are not evaluable.</text>
+</svg>

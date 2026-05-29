@@ -1,0 +1,25 @@
+run_id: stage5_phase2_math500_parametric_b_behavioral_v3
+model_id: Qwen/Qwen3-8B
+controller: closed_loop
+sign: any
+seed: 42
+test_fraction: 0.25
+n_bootstrap: 500
+logistic_steps: 400
+coherence_floor: 1.0
+quality_floors:
+  - 0.0
+  - 0.25
+  - 0.5
+  - 0.75
+  - 1.0
+environments:
+  math500:
+    env_id: primeintellect/math500
+    stage2_parametric_b: runs/stage2_v2_Qwen_Qwen3_8B_primeintellect_math500_parametric_b
+    stage4_runs:
+      parametric_b: phase2_math500_parametric_b_behavioral_v3_qwen_float32_merged
+limitations:
+  - This Stage 5 run evaluates Phase 2 verifier-scale math500 parametric_b trajectories with behavioral_encoder_v3.
+  - A/PCA/C math500 Phase 2 verifier-scale comparators are not generated in this replication step.
+  - The coordinate discriminator collapses sign by using both + and - trajectories for the same coordinate class and evaluates the closed_loop controller only.

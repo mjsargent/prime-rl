@@ -112,7 +112,7 @@ class FrozenModel:
             seq_len = hidden.shape[-2]
             pos = patch_position if patch_position >= 0 else seq_len + patch_position
             patched = hidden.clone()
-            patched[..., pos, :] = patched[..., pos, :] + delta.to(patched.dtype)
+            patched[..., pos, :] = patched[..., pos, :] + delta.to(device=patched.device, dtype=patched.dtype)
             return replace_hidden_state(output, patched)
 
         def readout_hook(_module, _inputs, output) -> None:

@@ -1,0 +1,13 @@
+{
+  "envs": [
+    "swe",
+    "math500"
+  ],
+  "figure_type": "sample_size_convergence",
+  "name": "stage1_sample_size_convergence",
+  "source_run_ids": [
+    "stage1_v2_original_graph_Qwen_Qwen3_8B_prime_swe_grep",
+    "stage1_v2_original_graph_Qwen_Qwen3_8B_primeintellect_math500"
+  ],
+  "title": "Stage 1 Sample-Size Convergence"
+}

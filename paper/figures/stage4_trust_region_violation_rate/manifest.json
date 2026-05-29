@@ -1,0 +1,13 @@
+{
+  "envs": [
+    "swe",
+    "math500"
+  ],
+  "figure_type": "stage4_trust_region",
+  "name": "stage4_trust_region_violation_rate",
+  "source_run_ids": [
+    "stage4_v2_Qwen_Qwen3_8B_prime_swe_grep_parametric_b_pilot_rerun3",
+    "stage4_v2_Qwen_Qwen3_8B_primeintellect_math500_parametric_b_pilot_rerun3"
+  ],
+  "title": "Trust-Region Violation Rate by Edit Norm"
+}

@@ -1,0 +1,28 @@
+{
+  "figure_type": "phase1_sign_asymmetry",
+  "name": "phase1_sign_asymmetry",
+  "source_run_ids": [
+    "phase1_per_controller_swe_grep_parametric_b",
+    "phase1_per_controller_swe_grep_average_controllability_a",
+    "phase1_per_controller_swe_grep_koopman_dmd_c",
+    "phase1_per_controller_swe_grep_original_graph",
+    "phase1_per_controller_math500_parametric_b",
+    "phase1_per_controller_math500_average_controllability_a",
+    "phase1_per_controller_math500_koopman_dmd_c",
+    "phase1_per_controller_math500_original_graph",
+    "phase1_sign_as_class_swe_grep_parametric_b",
+    "phase1_sign_as_class_swe_grep_average_controllability_a",
+    "phase1_sign_as_class_swe_grep_koopman_dmd_c",
+    "phase1_sign_as_class_swe_grep_original_graph",
+    "phase1_sign_as_class_math500_parametric_b",
+    "phase1_sign_as_class_math500_average_controllability_a",
+    "phase1_sign_as_class_math500_koopman_dmd_c",
+    "phase1_sign_as_class_math500_original_graph",
+    "phase1_per_coordinate_audit",
+    "phase1_top_coordinate_pattern",
+    "phase1_quality_conditioned",
+    "phase1_encoder_audit",
+    "phase1_graph_proxy_collision"
+  ],
+  "title": "Phase 1 Sign-As-Class Identifiability"
+}

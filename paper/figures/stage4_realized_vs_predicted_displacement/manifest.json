@@ -1,0 +1,13 @@
+{
+  "envs": [
+    "swe",
+    "math500"
+  ],
+  "figure_type": "stage4_displacement",
+  "name": "stage4_realized_vs_predicted_displacement",
+  "source_run_ids": [
+    "stage4_v2_Qwen_Qwen3_8B_prime_swe_grep_parametric_b_pilot_rerun3",
+    "stage4_v2_Qwen_Qwen3_8B_primeintellect_math500_parametric_b_pilot_rerun3"
+  ],
+  "title": "Realized vs Predicted Displacement"
+}

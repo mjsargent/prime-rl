@@ -1,0 +1,24 @@
+run_id: stage6_v2_Qwen_Qwen3_8B_tier_a_reduced
+model_id: Qwen/Qwen3-8B
+primary_formulation: parametric_b
+stage5_summary: runs/stage5_v2_Qwen_Qwen3_8B_tier_a_stage5/summary.json
+stage5_per_coordinate_path: runs/stage5_v2_Qwen_Qwen3_8B_tier_a_stage5/per_coordinate_identifiability.parquet
+environments:
+  swe_grep:
+    env_id: prime/swe-grep
+    stage3_summary: runs/stage3_v2_Qwen_Qwen3_8B_prime_swe_grep/summary.json
+    stage3_aggregated_path: runs/stage3_v2_Qwen_Qwen3_8B_prime_swe_grep/aggregated_per_coordinate.json
+  math500:
+    env_id: primeintellect/math500
+    stage3_summary: runs/stage3_v2_Qwen_Qwen3_8B_primeintellect_math500/summary.json
+    stage3_aggregated_path: runs/stage3_v2_Qwen_Qwen3_8B_primeintellect_math500/aggregated_per_coordinate.json
+frequency_bands:
+  - name: low
+    min_coordinate: 0
+    max_coordinate: 1
+  - name: mid
+    min_coordinate: 2
+    max_coordinate: 3
+  - name: high
+    min_coordinate: 4
+    max_coordinate:
