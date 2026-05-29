@@ -508,3 +508,22 @@ disk: /dev/root 969G total, 58G used, 912G free
 No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
 started. The active VM checkout remained at `f9c39f276` for the already-running
 process.
+
+At 2026-05-29T20:35:36Z, `mega5x3` crossed 3500 A-comparator trajectories and
+remained healthy:
+
+```text
+run_id prefix: phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_mega5x3
+trajectories: 3516 / 9600
+failed jobs: 0
+OOM/traceback/tensor-device/ModelError/no-space signatures: 0
+workers: A=10, C=0, PCA=0, MATH=0
+last shard write age: 2 seconds
+oldest shard write age: 57 seconds
+shard counts: 705, 705, 695, 705, 706
+disk: /dev/root 969G total, 58G used, 912G free
+```
+
+No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
+started. The active VM checkout remained at `f9c39f276` for the already-running
+process.
