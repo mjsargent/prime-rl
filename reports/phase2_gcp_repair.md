@@ -184,3 +184,14 @@ shards, 0 failed jobs, and no OOM/device-mismatch errors. This passed the
 longer-context point where `mega8x2` failed. Post-diagnostic throughput was
 roughly 44-50 seconds per trajectory per worker, with reward means around
 0.64-0.76 across shards.
+
+Phase 2 shard resume support was added after this launch. For configs with
+`resume_existing: true`, rerunning the same shard skips jobs already present in
+`trajectories.jsonl` and archives old `failed_jobs.jsonl` before retrying failed
+cells. This does not affect already-running worker processes, but it protects
+future restarts of the long Phase 2 comparator batch from duplicating completed
+cells.
+
+At 2026-05-29T09:00:31Z, the active `mega5x3` A-comparator run had produced
+158 trajectories across 5 shards, 0 failed jobs, and no OOM/device-mismatch
+errors.
