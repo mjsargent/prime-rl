@@ -73,6 +73,20 @@ One GPU per worker is not enough for this path: the model loads but rollout
 generation OOMs near 39.5 GiB used. Two GPUs per worker can also OOM once
 multi-turn prompts grow. H100-80GB can run one worker per GPU.
 
+On a single 16xA100 `a2-megagpu-16g`, prefer five 3-GPU workers for the
+float32 Qwen3-8B Phase 2 verifier path:
+
+```bash
+GPU_GROUPS='0,1,2;3,4,5;6,7,8;9,10,11;12,13,14' RUN_LABEL=mega5x3 \
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+bash scripts/run_phase2_gcp.sh
+```
+
+Eight 2-GPU workers are not safe for full swe-grep Phase 2 even if a tiny
+one-prompt probe passes: longer prompts produced `ModelError ->
+OutOfMemoryError` failed jobs around the second prompt. A two-prompt 3-GPU probe
+completed 32/32 trajectories with 0 failed jobs.
+
 If an existing or fresh H100 node is unavailable, document the exact GCP error
 (`ZONE_RESOURCE_POOL_EXHAUSTED_WITH_DETAILS` stockout or zero regional
 `GPUS_PER_GPU_FAMILY` quota) and continue on the repaired one-node A100 fallback

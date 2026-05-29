@@ -144,3 +144,37 @@ bash scripts/run_phase2_gcp.sh
 
 At 2026-05-29T07:37:42Z, `mega8x2` had produced 17 trajectories across 8
 shards, 0 failed jobs, and no OOM/device-mismatch errors.
+
+The full `mega8x2` run was not safe despite the one-prompt 2-GPU probe. After
+the rollout distribution reached longer prompts, every shard began producing OOM
+failed jobs. The run was stopped at:
+
+```text
+run_label: mega8x2
+trajectories_per_shard: 7-8
+failed_jobs_per_shard: 2
+dominant_error: ModelError -> OutOfMemoryError, 1.22 GiB allocation with ~0.9 GiB free
+```
+
+A stricter 3-GPU probe used two prompts, all 8 A coordinates, both signs, and
+one seed. This catches the longer-context failure missed by the 2-GPU probe:
+
+```text
+run_id: phase2_probe_swe_grep_average_a_3gpu_after_oom_fixes
+num_trajectories: 32
+num_failed: 0
+tool_call_count: 227
+mean_generated_tokens: 222.1875
+median_turn_linearization_cosine: 0.9999966621398926
+median_turn_linearization_r2: 0.9999886155128479
+```
+
+It failed only the two-prompt encoder active-fraction gate. The full batch was
+restarted as `mega5x3`, using five 3-GPU workers on the single 16xA100 node:
+
+```bash
+GPU_GROUPS='0,1,2;3,4,5;6,7,8;9,10,11;12,13,14' \
+RUN_LABEL=mega5x3 \
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+bash scripts/run_phase2_gcp.sh
+```
