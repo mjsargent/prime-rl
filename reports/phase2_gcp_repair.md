@@ -178,3 +178,9 @@ RUN_LABEL=mega5x3 \
 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
 bash scripts/run_phase2_gcp.sh
 ```
+
+At 2026-05-29T08:56:03Z, `mega5x3` had produced 144 trajectories across 5
+shards, 0 failed jobs, and no OOM/device-mismatch errors. This passed the
+longer-context point where `mega8x2` failed. Post-diagnostic throughput was
+roughly 44-50 seconds per trajectory per worker, with reward means around
+0.64-0.76 across shards.
