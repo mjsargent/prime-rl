@@ -548,3 +548,22 @@ The archive contains the five active A shard `trajectories.jsonl` and
 `raw_rollouts.jsonl` files plus `runs/gcp_logs/phase2_mega5x3_STATUS.md`. No
 merged A artifact existed yet, and C, PCA-proxy, and math500 B had not started.
 The active VM checkout remained at `f9c39f276` for the already-running process.
+
+At 2026-05-29T23:51:54Z, `mega5x3` crossed 4500 A-comparator trajectories and
+remained healthy:
+
+```text
+run_id prefix: phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_mega5x3
+trajectories: 4505 / 9600
+failed jobs: 0
+OOM/traceback/tensor-device/ModelError/no-space signatures: 0
+workers: A=10, C=0, PCA=0, MATH=0
+last shard write age: 7 seconds
+oldest shard write age: 115 seconds
+shard counts: 904, 902, 892, 903, 904
+disk: /dev/root 969G total, 58G used, 912G free
+```
+
+No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
+started. The active VM checkout remained at `f9c39f276` for the already-running
+process.
