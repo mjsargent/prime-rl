@@ -303,3 +303,13 @@ signatures, and recent shard writes. The observed elapsed-time rate was about
 C, PCA-proxy, and math500 B had not started. The local branch was clean at
 `ad88b5388`; the active VM checkout remained at `f9c39f276` for the already
 running process.
+
+At 2026-05-29T13:34:21Z, `mega5x3` had produced 1437 A-comparator
+trajectories with 0 failed jobs and no OOM/traceback/tensor-device/ModelError
+signatures. Active worker counts were still A=10, C=0, PCA=0, and MATH=0. The
+latest shard write was 24 seconds old, the oldest shard write was 82 seconds
+old, and shard counts remained balanced at 289, 288, 284, 288, and 288. The
+observed elapsed-time rate was about 0.0759 trajectories/second, leaving 8163
+A trajectories. No merged A artifact existed yet, and C, PCA-proxy, and
+math500 B had not started. The local branch was clean at `99a72cfb3`; the
+active VM checkout remained at `f9c39f276` for the already-running process.
