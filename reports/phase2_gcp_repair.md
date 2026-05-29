@@ -268,6 +268,13 @@ aggregated geometry contained the expected formulations for swe-grep and
 math500 (`parametric_b`, `average_controllability_a`, `koopman_dmd_c`, and
 `original_graph`).
 
+A follow-up remote input-path check passed for the remaining queued Phase 2
+configs. The VM has the Stage 3 aggregated geometry and locked baseline YAMLs
+needed for swe-grep A, swe-grep C, swe-grep PCA-proxy, and math500 B. At that
+point only the active A shards existed (`5` shard directories); C, PCA-proxy,
+and math500 B correctly had `0` shard directories because they had not started
+yet.
+
 The active VM checkout still cannot run `uv run --locked` because the old
 checkout reports that `uv.lock` needs updating against the current resolver
 metadata. This does not affect the already-running process, which was launched
