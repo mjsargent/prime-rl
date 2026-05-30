@@ -597,3 +597,41 @@ disk: /dev/root 969G total, 58G used, 912G free
 No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
 started. The active VM checkout remained at `f9c39f276` for the already-running
 process.
+
+At 2026-05-30T01:08:35Z, A completed and merged, and the runner advanced to the
+`koopman_dmd_c` comparator:
+
+```text
+A trajectories: 4800 / 4800
+A failed jobs: 0
+A shard counts: 960, 960, 960, 960, 960
+A merged output: runs/phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_merged
+C workers: 10
+C trajectories: 0
+OOM/traceback/tensor-device/ModelError/no-space signatures: 0
+```
+
+The merged A summary was written at 2026-05-30T01:06:28Z with `gate=pass`,
+`num_jobs=4800`, `num_total_jobs_unsharded=4800`, `num_trajectories=4800`,
+`num_failed=0`, `trajectory_rows=4800`, `raw_rollout_rows=4800`,
+`encoded_rows=4800`, and all five shard gates passing. The merged A artifact
+was archived on the VM and copied locally as
+`runs/gcp_snapshots/phase2_mega5x3_a_merged_20260530T0108Z.tgz`; the archive
+contains the merged A run directory, the five A shard summaries, and
+`runs/gcp_logs/phase2_mega5x3_STATUS.md`.
+
+At 2026-05-30T01:10:03Z, C had moved from startup into generation:
+
+```text
+C trajectories: 10
+C failed jobs: 0
+C workers: 10
+C last shard write age: 18 seconds
+C oldest shard write age: 28 seconds
+C shard counts: 2, 2, 2, 2, 2
+OOM/traceback/tensor-device/ModelError/no-space signatures: 0
+disk: /dev/root 969G total, 58G used, 912G free
+```
+
+No PCA-proxy or math500 B workers had started yet. The active VM checkout
+remained at `f9c39f276` for the already-running process.
