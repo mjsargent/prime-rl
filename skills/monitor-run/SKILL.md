@@ -87,8 +87,13 @@ one-prompt probe passes: longer prompts produced `ModelError ->
 OutOfMemoryError` failed jobs around the second prompt. A two-prompt 3-GPU probe
 completed 32/32 trajectories with 0 failed jobs. In the full `mega5x3`
 A-comparator run, a 468-trajectory stability sample had 0 failed jobs and
-throughput around 269 trajectories/hour across all five workers, so a 9600-cell
-comparator takes roughly 36 hours on this fallback node.
+throughput around 269 trajectories/hour across all five workers. Do not infer
+the final target from config arithmetic alone: `n_prompts` is a request to the
+environment, and the swe-grep verifier environment can return fewer eval
+examples than requested. For the current A-comparator config, shard summaries
+reported `num_total_jobs_unsharded=4800` because the environment supplied 100
+eval examples, not 200. Treat shard-summary `metrics.num_total_jobs_unsharded`
+as the authoritative target once any shard summary exists.
 
 If an existing or fresh H100 node is unavailable, document the exact GCP error
 (`ZONE_RESOURCE_POOL_EXHAUSTED_WITH_DETAILS` stockout or zero regional
@@ -125,8 +130,10 @@ RUN_LABEL=mega5x3 bash scripts/phase2_status_snapshot.sh
 It appends a markdown snapshot under `runs/gcp_logs/` and prints the tail. The
 snapshot includes active A/C/PCA/MATH process counts, stage subtotals, shard
 write ages, A-comparator ETA, merged-output presence, error signatures, and disk
-usage. From a local workstation, prefer a simple remote helper invocation over a
-long nested quoted diagnostic:
+usage. The A target is inferred from completed shard summaries when possible;
+before summaries exist it uses `PHASE2_A_TARGET_FALLBACK` unless
+`PHASE2_A_TARGET` is explicitly set. From a local workstation, prefer a simple
+remote helper invocation over a long nested quoted diagnostic:
 
 ```bash
 gcloud compute ssh controllability-phase2-a2-16-uscentral1c \

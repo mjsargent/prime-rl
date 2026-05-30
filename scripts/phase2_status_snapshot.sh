@@ -4,7 +4,8 @@ set -euo pipefail
 RUN_LABEL="${RUN_LABEL:-mega5x3}"
 LOG_DIR="${LOG_DIR:-runs/gcp_logs}"
 STATUS_FILE="${STATUS_FILE:-${LOG_DIR}/phase2_${RUN_LABEL}_STATUS.md}"
-PHASE2_A_TARGET="${PHASE2_A_TARGET:-9600}"
+PHASE2_A_TARGET="${PHASE2_A_TARGET:-}"
+PHASE2_A_TARGET_FALLBACK="${PHASE2_A_TARGET_FALLBACK:-9600}"
 
 phase2_prefixes=(
   "phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32"
@@ -61,6 +62,28 @@ process_count() {
     return
   fi
   printf "%s\n" "$matches" | awk '!/pgrep -af/ { count++ } END { print count + 0 }'
+}
+
+phase2_a_target() {
+  local prefix="$1"
+  local summary value
+  if [[ -n "$PHASE2_A_TARGET" ]]; then
+    printf "%s\n" "$PHASE2_A_TARGET"
+    return
+  fi
+  for summary in runs/${prefix}_${RUN_LABEL}_shard*/summary.json; do
+    [[ -f "$summary" ]] || continue
+    if command -v jq >/dev/null 2>&1; then
+      value="$(jq -r '.metrics.num_total_jobs_unsharded // empty' "$summary")"
+    else
+      value="$(sed -n 's/.*"num_total_jobs_unsharded": \([0-9][0-9]*\).*/\1/p' "$summary" | head -1)"
+    fi
+    if [[ "$value" =~ ^[0-9]+$ ]] && [[ "$value" -gt 0 ]]; then
+      printf "%s\n" "$value"
+      return
+    fi
+  done
+  printf "%s\n" "$PHASE2_A_TARGET_FALLBACK"
 }
 
 mkdir -p "$LOG_DIR"
@@ -147,11 +170,12 @@ for prefix in "${phase2_prefixes[@]}"; do
     fi
     progress_extra=""
     if [[ "$prefix" == "$phase2_a_prefix" ]]; then
-      remaining=$((PHASE2_A_TARGET - subtotal))
+      target="$(phase2_a_target "$prefix")"
+      remaining=$((target - subtotal))
       if [[ "$remaining" -lt 0 ]]; then
         remaining=0
       fi
-      progress_extra=", remaining=${remaining}"
+      progress_extra=", target=${target}, remaining=${remaining}"
       if [[ -n "$master_elapsed_s" ]] && [[ "$subtotal" -gt 0 ]]; then
         rate="$(awk -v generated="$subtotal" -v elapsed="$master_elapsed_s" 'BEGIN { if (elapsed > 0) printf "%.4f", generated / elapsed; else print "0" }')"
         eta_s="$(awk -v remaining="$remaining" -v rate="$rate" 'BEGIN { if (rate > 0) printf "%.0f", remaining / rate; else print "0" }')"

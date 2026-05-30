@@ -567,3 +567,33 @@ disk: /dev/root 969G total, 58G used, 912G free
 No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
 started. The active VM checkout remained at `f9c39f276` for the already-running
 process.
+
+At 2026-05-30T00:53:29Z, the apparent A-worker drop was traced to shard
+completion rather than OOM or silent failure. Four shard summaries already
+existed and passed with `num_jobs=960`, `num_trajectories=960`, `num_failed=0`,
+and `num_total_jobs_unsharded=4800`; the remaining live worker was shard02.
+The active config still requests `n_prompts: 200`, but the swe-grep verifier
+environment supplied 100 eval examples, so the actual A grid for this run is
+100 prompts x 3 seeds x 8 coordinates x 2 signs = 4800 trajectories. Earlier
+status snapshots used the helper's hardcoded `/9600` denominator; the shard
+summaries supersede that denominator. The local status helper now infers the A
+target from shard summaries when available.
+
+At 2026-05-30T01:00:15Z, the patched helper reported `mega5x3` at 4793 / 4800
+A trajectories with 7 remaining:
+
+```text
+run_id prefix: phase2_swe_grep_average_controllability_a_behavioral_v3_qwen_tooluse_float32_mega5x3
+trajectories: 4793 / 4800
+failed jobs: 0
+OOM/traceback/tensor-device/ModelError/no-space signatures: 0
+workers: A=2, C=0, PCA=0, MATH=0
+last shard write age: 41 seconds
+oldest shard write age: 530 seconds
+shard counts: 960, 960, 953, 960, 960
+disk: /dev/root 969G total, 58G used, 912G free
+```
+
+No merged A artifact existed yet, and C, PCA-proxy, and math500 B had not
+started. The active VM checkout remained at `f9c39f276` for the already-running
+process.
